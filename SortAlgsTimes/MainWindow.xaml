@@ -20,7 +20,7 @@
 				<ComboBoxItem Content="Int64"/>
 				<ComboBoxItem Content="string"/>
 			</ComboBox>
-			<ComboBox x:Name="arrayElementsOrderComboBox" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="128" Height="23" SelectionChanged="arrayTypesComboBox_SelectionChanged">
+			<ComboBox x:Name="arrayElementsOrderComboBox" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="128" Height="23">
 				<ComboBoxItem Content="Random"/>
 				<ComboBoxItem Content="Sorted ascending"/>
 				<ComboBoxItem Content="Sorted descending"/>
