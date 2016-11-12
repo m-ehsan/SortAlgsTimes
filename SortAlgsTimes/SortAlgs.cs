@@ -16,157 +16,317 @@ namespace SortAlgsTimes
 			rhs = temp;
 		}
 
-		public static void BubbleSort(byte[] array)
+		public static void BubbleSort(byte[] array, bool asc)
 		{
-			for (uint i = 0; i < array.Length - 1; i++)
+			if (asc)
 			{
-				for (uint j = 0; j < array.Length - i - 1; j++)
+				for (uint i = 0; i < array.Length - 1; i++)
 				{
-					if (array[j] > array[j + 1])
+					for (uint j = 0; j < array.Length - i - 1; j++)
 					{
-						swap(ref array[j], ref array[j + 1]);
+						if (array[j] > array[j + 1])
+						{
+							swap(ref array[j], ref array[j + 1]);
+						}
 					}
 				}
 			}
+			else
+			{
+				for (uint i = 0; i < array.Length - 1; i++)
+				{
+					for (uint j = 0; j < array.Length - i - 1; j++)
+					{
+						if (array[j] < array[j + 1])
+						{
+							swap(ref array[j], ref array[j + 1]);
+						}
+					}
+				}
+			}
+
 		}
-		public static void BubbleSort(short[] array)
+		public static void BubbleSort(short[] array, bool asc)
 		{
-			for (uint i = 0; i < array.Length - 1; i++)
+			if (asc)
 			{
-				for (uint j = 0; j < array.Length - i - 1; j++)
+				for (uint i = 0; i < array.Length - 1; i++)
 				{
-					if (array[j] > array[j + 1])
+					for (uint j = 0; j < array.Length - i - 1; j++)
 					{
-						swap(ref array[j], ref array[j + 1]);
+						if (array[j] > array[j + 1])
+						{
+							swap(ref array[j], ref array[j + 1]);
+						}
 					}
 				}
 			}
+			else
+			{
+				for (uint i = 0; i < array.Length - 1; i++)
+				{
+					for (uint j = 0; j < array.Length - i - 1; j++)
+					{
+						if (array[j] < array[j + 1])
+						{
+							swap(ref array[j], ref array[j + 1]);
+						}
+					}
+				}
+			}
+
 		}
-		public static void BubbleSort(int[] array)
+		public static void BubbleSort(int[] array, bool asc)
 		{
-			for (uint i = 0; i < array.Length - 1; i++)
+			if (asc)
 			{
-				for (uint j = 0; j < array.Length - i - 1; j++)
+				for (uint i = 0; i < array.Length - 1; i++)
 				{
-					if (array[j] > array[j + 1])
+					for (uint j = 0; j < array.Length - i - 1; j++)
 					{
-						swap(ref array[j], ref array[j + 1]);
+						if (array[j] > array[j + 1])
+						{
+							swap(ref array[j], ref array[j + 1]);
+						}
 					}
 				}
 			}
+			else
+			{
+				for (uint i = 0; i < array.Length - 1; i++)
+				{
+					for (uint j = 0; j < array.Length - i - 1; j++)
+					{
+						if (array[j] < array[j + 1])
+						{
+							swap(ref array[j], ref array[j + 1]);
+						}
+					}
+				}
+			}
+
 		}
-		public static void BubbleSort(long[] array)
+		public static void BubbleSort(long[] array, bool asc)
 		{
-			for (uint i = 0; i < array.Length - 1; i++)
+			if (asc)
 			{
-				for (uint j = 0; j < array.Length - i - 1; j++)
+				for (uint i = 0; i < array.Length - 1; i++)
 				{
-					if (array[j] > array[j + 1])
+					for (uint j = 0; j < array.Length - i - 1; j++)
 					{
-						swap(ref array[j], ref array[j + 1]);
+						if (array[j] > array[j + 1])
+						{
+							swap(ref array[j], ref array[j + 1]);
+						}
 					}
 				}
 			}
+			else
+			{
+				for (uint i = 0; i < array.Length - 1; i++)
+				{
+					for (uint j = 0; j < array.Length - i - 1; j++)
+					{
+						if (array[j] < array[j + 1])
+						{
+							swap(ref array[j], ref array[j + 1]);
+						}
+					}
+				}
+			}
+
 		}
-		public static void BubbleSort(string[] array)
+		public static void BubbleSort(string[] array, bool asc)
 		{
-			for (uint i = 0; i < array.Length - 1; i++)
+			if (asc)
 			{
-				for (uint j = 0; j < array.Length - i - 1; j++)
+				for (uint i = 0; i < array.Length - 1; i++)
 				{
-					if (string.CompareOrdinal(array[j], array[j + 1]) > 0)
+					for (uint j = 0; j < array.Length - i - 1; j++)
 					{
-						swap(ref array[j], ref array[j + 1]);
+						if (string.CompareOrdinal(array[j], array[j + 1]) > 0)
+						{
+							swap(ref array[j], ref array[j + 1]);
+						}
 					}
 				}
 			}
+			else
+			{
+				for (uint i = 0; i < array.Length - 1; i++)
+				{
+					for (uint j = 0; j < array.Length - i - 1; j++)
+					{
+						if (string.CompareOrdinal(array[j], array[j + 1]) < 0)
+						{
+							swap(ref array[j], ref array[j + 1]);
+						}
+					}
+				}
+			}
+
 		}
 
-		public static void InsertionSort(byte[] array)
+		public static void InsertionSort(byte[] array, bool asc)
 		{
 			byte temp;
 			long j;
-			for (long i = 1; i < array.Length; i++)
+			if (asc)
 			{
-				temp = array[i];
-				for (j = i - 1; j >= 0 && array[j] > temp; j--)
+				for (long i = 1; i < array.Length; i++)
 				{
-					array[j + 1] = array[j];
+					temp = array[i];
+					for (j = i - 1; j >= 0 && array[j] > temp; j--)
+					{
+						array[j + 1] = array[j];
+					}
+					array[j + 1] = temp;
 				}
-				array[j + 1] = temp;
+			}
+			else
+			{
+				for (long i = 1; i < array.Length; i++)
+				{
+					temp = array[i];
+					for (j = i - 1; j >= 0 && array[j] < temp; j--)
+					{
+						array[j + 1] = array[j];
+					}
+					array[j + 1] = temp;
+				}
 			}
 		}
-		public static void InsertionSort(short[] array)
+		public static void InsertionSort(short[] array, bool asc)
 		{
 			short temp;
 			long j;
-			for (long i = 1; i < array.Length; i++)
+			if (asc)
 			{
-				temp = array[i];
-				for (j = i - 1; j >= 0 && array[j] > temp; j--)
+				for (long i = 1; i < array.Length; i++)
 				{
-					array[j + 1] = array[j];
+					temp = array[i];
+					for (j = i - 1; j >= 0 && array[j] > temp; j--)
+					{
+						array[j + 1] = array[j];
+					}
+					array[j + 1] = temp;
 				}
-				array[j + 1] = temp;
+			}
+			else
+			{
+				for (long i = 1; i < array.Length; i++)
+				{
+					temp = array[i];
+					for (j = i - 1; j >= 0 && array[j] < temp; j--)
+					{
+						array[j + 1] = array[j];
+					}
+					array[j + 1] = temp;
+				}
 			}
 		}
-		public static void InsertionSort(int[] array)
+		public static void InsertionSort(int[] array, bool asc)
 		{
 			int temp;
 			long j;
-			for (long i = 1; i < array.Length; i++)
+			if (asc)
 			{
-				temp = array[i];
-				for (j = i - 1; j >= 0 && array[j] > temp; j--)
+				for (long i = 1; i < array.Length; i++)
 				{
-					array[j + 1] = array[j];
+					temp = array[i];
+					for (j = i - 1; j >= 0 && array[j] > temp; j--)
+					{
+						array[j + 1] = array[j];
+					}
+					array[j + 1] = temp;
 				}
-				array[j + 1] = temp;
+			}
+			else
+			{
+				for (long i = 1; i < array.Length; i++)
+				{
+					temp = array[i];
+					for (j = i - 1; j >= 0 && array[j] < temp; j--)
+					{
+						array[j + 1] = array[j];
+					}
+					array[j + 1] = temp;
+				}
 			}
 		}
-		public static void InsertionSort(long[] array)
+		public static void InsertionSort(long[] array, bool asc)
 		{
 			long temp;
 			long j;
-			for (long i = 1; i < array.Length; i++)
+			if (asc)
 			{
-				temp = array[i];
-				for (j = i - 1; j >= 0 && array[j] > temp; j--)
+				for (long i = 1; i < array.Length; i++)
 				{
-					array[j + 1] = array[j];
+					temp = array[i];
+					for (j = i - 1; j >= 0 && array[j] > temp; j--)
+					{
+						array[j + 1] = array[j];
+					}
+					array[j + 1] = temp;
 				}
-				array[j + 1] = temp;
+			}
+			else
+			{
+				for (long i = 1; i < array.Length; i++)
+				{
+					temp = array[i];
+					for (j = i - 1; j >= 0 && array[j] < temp; j--)
+					{
+						array[j + 1] = array[j];
+					}
+					array[j + 1] = temp;
+				}
 			}
 		}
-		public static void InsertionSort(string[] array)
+		public static void InsertionSort(string[] array, bool asc)
 		{
 			string temp;
 			long j;
-			for (uint i = 1; i < array.Length; i++)
+			if (asc)
 			{
-				temp = array[i];
-				for (j = i - 1; j >= 0 && (string.CompareOrdinal(array[j], temp) > 0); j--)
+				for (long i = 1; i < array.Length; i++)
 				{
-					array[j + 1] = array[j];
+					temp = array[i];
+					for (j = i - 1; j >= 0 && (string.CompareOrdinal(array[j], temp) > 0); j--)
+					{
+						array[j + 1] = array[j];
+					}
+					array[j + 1] = temp;
 				}
-				array[j + 1] = temp;
+			}
+			else
+			{
+				for (long i = 1; i < array.Length; i++)
+				{
+					temp = array[i];
+					for (j = i - 1; j >= 0 && (string.CompareOrdinal(array[j], temp) < 0); j--)
+					{
+						array[j + 1] = array[j];
+					}
+					array[j + 1] = temp;
+				}
 			}
 		}
 
-		public static void MergeSort(byte[] array, int left, int right)
+		public static void MergeSort(byte[] array, int left, int right, bool asc)
 		{
 			int mid;
 
 			if (right > left)
 			{
 				mid = (right + left) / 2;
-				MergeSort(array, left, mid);
-				MergeSort(array, (mid + 1), right);
 
-				DoMerge(array, left, (mid + 1), right);
+				MergeSort(array, left, mid, asc);
+				MergeSort(array, (mid + 1), right, asc);
+				DoMerge(array, left, (mid + 1), right, asc);
 			}
 		}
-		private static void DoMerge(byte[] array, int left, int mid, int right)
+		private static void DoMerge(byte[] array, int left, int mid, int right, bool asc)
 		{
 			byte[] temp = new byte[array.Length];
 			int i, left_end, num_elements, tmp_pos;
@@ -175,12 +335,25 @@ namespace SortAlgsTimes
 			tmp_pos = left;
 			num_elements = (right - left + 1);
 
-			while ((left <= left_end) && (mid <= right))
+			if (asc)
 			{
-				if (array[left] <= array[mid])
-					temp[tmp_pos++] = array[left++];
-				else
-					temp[tmp_pos++] = array[mid++];
+				while ((left <= left_end) && (mid <= right))
+				{
+					if (array[left] <= array[mid])
+						temp[tmp_pos++] = array[left++];
+					else
+						temp[tmp_pos++] = array[mid++];
+				}
+			}
+			else
+			{
+				while ((left <= left_end) && (mid <= right))
+				{
+					if (array[left] >= array[mid])
+						temp[tmp_pos++] = array[left++];
+					else
+						temp[tmp_pos++] = array[mid++];
+				}
 			}
 
 			while (left <= left_end)
@@ -195,20 +368,20 @@ namespace SortAlgsTimes
 				right--;
 			}
 		}
-		public static void MergeSort(short[] array, int left, int right)
+		public static void MergeSort(short[] array, int left, int right, bool asc)
 		{
 			int mid;
 
 			if (right > left)
 			{
 				mid = (right + left) / 2;
-				MergeSort(array, left, mid);
-				MergeSort(array, (mid + 1), right);
 
-				DoMerge(array, left, (mid + 1), right);
+				MergeSort(array, left, mid, asc);
+				MergeSort(array, (mid + 1), right, asc);
+				DoMerge(array, left, (mid + 1), right, asc);
 			}
 		}
-		private static void DoMerge(short[] array, int left, int mid, int right)
+		private static void DoMerge(short[] array, int left, int mid, int right, bool asc)
 		{
 			short[] temp = new short[array.Length];
 			int i, left_end, num_elements, tmp_pos;
@@ -217,12 +390,25 @@ namespace SortAlgsTimes
 			tmp_pos = left;
 			num_elements = (right - left + 1);
 
-			while ((left <= left_end) && (mid <= right))
+			if (asc)
 			{
-				if (array[left] <= array[mid])
-					temp[tmp_pos++] = array[left++];
-				else
-					temp[tmp_pos++] = array[mid++];
+				while ((left <= left_end) && (mid <= right))
+				{
+					if (array[left] <= array[mid])
+						temp[tmp_pos++] = array[left++];
+					else
+						temp[tmp_pos++] = array[mid++];
+				}
+			}
+			else
+			{
+				while ((left <= left_end) && (mid <= right))
+				{
+					if (array[left] >= array[mid])
+						temp[tmp_pos++] = array[left++];
+					else
+						temp[tmp_pos++] = array[mid++];
+				}
 			}
 
 			while (left <= left_end)
@@ -237,20 +423,20 @@ namespace SortAlgsTimes
 				right--;
 			}
 		}
-		public static void MergeSort(int[] array, int left, int right)
+		public static void MergeSort(int[] array, int left, int right, bool asc)
 		{
 			int mid;
 
 			if (right > left)
 			{
 				mid = (right + left) / 2;
-				MergeSort(array, left, mid);
-				MergeSort(array, (mid + 1), right);
 
-				DoMerge(array, left, (mid + 1), right);
+				MergeSort(array, left, mid, asc);
+				MergeSort(array, (mid + 1), right, asc);
+				DoMerge(array, left, (mid + 1), right, asc);
 			}
 		}
-		private static void DoMerge(int[] array, int left, int mid, int right)
+		private static void DoMerge(int[] array, int left, int mid, int right, bool asc)
 		{
 			int[] temp = new int[array.Length];
 			int i, left_end, num_elements, tmp_pos;
@@ -259,12 +445,25 @@ namespace SortAlgsTimes
 			tmp_pos = left;
 			num_elements = (right - left + 1);
 
-			while ((left <= left_end) && (mid <= right))
+			if (asc)
 			{
-				if (array[left] <= array[mid])
-					temp[tmp_pos++] = array[left++];
-				else
-					temp[tmp_pos++] = array[mid++];
+				while ((left <= left_end) && (mid <= right))
+				{
+					if (array[left] <= array[mid])
+						temp[tmp_pos++] = array[left++];
+					else
+						temp[tmp_pos++] = array[mid++];
+				}
+			}
+			else
+			{
+				while ((left <= left_end) && (mid <= right))
+				{
+					if (array[left] >= array[mid])
+						temp[tmp_pos++] = array[left++];
+					else
+						temp[tmp_pos++] = array[mid++];
+				}
 			}
 
 			while (left <= left_end)
@@ -279,20 +478,20 @@ namespace SortAlgsTimes
 				right--;
 			}
 		}
-		public static void MergeSort(long[] array, int left, int right)
+		public static void MergeSort(long[] array, int left, int right, bool asc)
 		{
 			int mid;
 
 			if (right > left)
 			{
 				mid = (right + left) / 2;
-				MergeSort(array, left, mid);
-				MergeSort(array, (mid + 1), right);
 
-				DoMerge(array, left, (mid + 1), right);
+				MergeSort(array, left, mid, asc);
+				MergeSort(array, (mid + 1), right, asc);
+				DoMerge(array, left, (mid + 1), right, asc);
 			}
 		}
-		private static void DoMerge(long[] array, int left, int mid, int right)
+		private static void DoMerge(long[] array, int left, int mid, int right, bool asc)
 		{
 			long[] temp = new long[array.Length];
 			int i, left_end, num_elements, tmp_pos;
@@ -301,12 +500,25 @@ namespace SortAlgsTimes
 			tmp_pos = left;
 			num_elements = (right - left + 1);
 
-			while ((left <= left_end) && (mid <= right))
+			if (asc)
 			{
-				if (array[left] <= array[mid])
-					temp[tmp_pos++] = array[left++];
-				else
-					temp[tmp_pos++] = array[mid++];
+				while ((left <= left_end) && (mid <= right))
+				{
+					if (array[left] <= array[mid])
+						temp[tmp_pos++] = array[left++];
+					else
+						temp[tmp_pos++] = array[mid++];
+				}
+			}
+			else
+			{
+				while ((left <= left_end) && (mid <= right))
+				{
+					if (array[left] >= array[mid])
+						temp[tmp_pos++] = array[left++];
+					else
+						temp[tmp_pos++] = array[mid++];
+				}
 			}
 
 			while (left <= left_end)
@@ -321,20 +533,20 @@ namespace SortAlgsTimes
 				right--;
 			}
 		}
-		public static void MergeSort(string[] array, int left, int right)
+		public static void MergeSort(string[] array, int left, int right, bool asc)
 		{
 			int mid;
 
 			if (right > left)
 			{
 				mid = (right + left) / 2;
-				MergeSort(array, left, mid);
-				MergeSort(array, (mid + 1), right);
 
-				DoMerge(array, left, (mid + 1), right);
+				MergeSort(array, left, mid, asc);
+				MergeSort(array, (mid + 1), right, asc);
+				DoMerge(array, left, (mid + 1), right, asc);
 			}
 		}
-		private static void DoMerge(string[] array, int left, int mid, int right)
+		private static void DoMerge(string[] array, int left, int mid, int right, bool asc)
 		{
 			string[] temp = new string[array.Length];
 			int i, left_end, num_elements, tmp_pos;
@@ -343,12 +555,25 @@ namespace SortAlgsTimes
 			tmp_pos = left;
 			num_elements = (right - left + 1);
 
-			while ((left <= left_end) && (mid <= right))
+			if (asc)
 			{
-				if (string.CompareOrdinal(array[left], array[mid]) <= 0)
-					temp[tmp_pos++] = array[left++];
-				else
-					temp[tmp_pos++] = array[mid++];
+				while ((left <= left_end) && (mid <= right))
+				{
+					if (string.CompareOrdinal(array[left], array[mid]) <= 0)
+						temp[tmp_pos++] = array[left++];
+					else
+						temp[tmp_pos++] = array[mid++];
+				}
+			}
+			else
+			{
+				while ((left <= left_end) && (mid <= right))
+				{
+					if (string.CompareOrdinal(array[left], array[mid]) >= 0)
+						temp[tmp_pos++] = array[left++];
+					else
+						temp[tmp_pos++] = array[mid++];
+				}
 			}
 
 			while (left <= left_end)
