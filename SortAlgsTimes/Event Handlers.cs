@@ -121,8 +121,10 @@ namespace SortAlgsTimes
 
 		private void showArrayCheckBox_Unchecked(object sender, RoutedEventArgs e)
 		{
-			arrayContentScrollViewer.Visibility = Visibility.Hidden;
 			topGrid.Height -= 90;
+			arrayContentScrollViewer.Visibility = Visibility.Hidden;
+			proceedDisplayingArrayButton.Visibility = Visibility.Hidden;
+			arrayContentTextBlock.Text = "[EMPTY]";
 		}
 
 		private void showSortedArrayCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -145,7 +147,9 @@ namespace SortAlgsTimes
 
 		private void showSortedArrayCheckBox_Unchecked(object sender, RoutedEventArgs e)
 		{
+			proceedDisplayingSortedArrayButton.Visibility = Visibility.Hidden;
 			sortedArrayContentScrollViewer.Visibility = Visibility.Hidden;
+			sortedArrayContentTextBlock.Text = "[EMPTY]";
 		}
 
 		private void proceedDisplayingArray_Click(object sender, RoutedEventArgs e)

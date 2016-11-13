@@ -56,7 +56,7 @@
 			<ScrollViewer x:Name="sortedArrayContentScrollViewer" HorizontalAlignment="Left" Margin="10,166,0,-18" VerticalAlignment="Top" Visibility="Hidden" Background="#FFDEDEDE" Width="495" Height="80">
 				<TextBlock x:Name="sortedArrayContentTextBlock" TextWrapping="Wrap" Text="[EMPTY]"/>
 			</ScrollViewer>
-			<Button x:Name="proceedDisplayingSortedArrayButton" Content="Proceed" Width="47" Height="25" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="236,195,236,0" IsTabStop="False" IsEnabled="False" Click="proceedDisplayingSortedArray_Click"/>
+			<Button x:Name="proceedDisplayingSortedArrayButton" Content="Proceed" Width="47" Height="25" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="232,193,232,0" IsTabStop="False" IsEnabled="False" Click="proceedDisplayingSortedArray_Click"/>
 			<ComboBox x:Name="sortOrderComboBox" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Width="100" Height="20" FontSize="11">
 				<ComboBoxItem Content="Ascending"/>
 				<ComboBoxItem Content="Descending"/>
