@@ -9,6 +9,7 @@ A WPF project that caclulates and compares some sorting algorithms times.<br/>
 ##Features
 * Array size is defined by user
 * Supported array types: byte, short, int, long, string
+* String length range is also defined by user
 * Times are measured by accuracy of 10<sup>-7</sup> of a second
 * Sort operations can be either ascending or descending
 * Input array can be sorted initially
