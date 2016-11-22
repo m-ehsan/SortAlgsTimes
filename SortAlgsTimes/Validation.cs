@@ -1,5 +1,3 @@
-﻿using System;
-
 namespace SortAlgsTimes
 {
 	public partial class MainWindow
