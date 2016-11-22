@@ -4,6 +4,8 @@ namespace SortAlgsTimes
 {
 	public static class SortAlgs
 	{
+		public static ulong comparisonCount;
+
 		private static void swap<T>(ref T lhs, ref T rhs)
 		{
 			T temp;
@@ -14,12 +16,15 @@ namespace SortAlgsTimes
 
 		public static void BubbleSort<T>(T[] array, bool asc) where T : IComparable<T>
 		{
+			comparisonCount = 0;
+
 			if (asc)
 			{
 				for (uint i = 0; i < array.Length - 1; i++)
 				{
 					for (uint j = 0; j < array.Length - i - 1; j++)
 					{
+						comparisonCount++;
 						if (array[j].CompareTo(array[j + 1]) > 0)
 						{
 							swap(ref array[j], ref array[j + 1]);
@@ -33,6 +38,7 @@ namespace SortAlgsTimes
 				{
 					for (uint j = 0; j < array.Length - i - 1; j++)
 					{
+						comparisonCount++;
 						if (array[j].CompareTo(array[j + 1]) < 0)
 						{
 							swap(ref array[j], ref array[j + 1]);
@@ -44,8 +50,10 @@ namespace SortAlgsTimes
 
 		public static void InsertionSort<T>(T[] array, bool asc) where T :IComparable<T>
 		{
+			comparisonCount = 0;
 			T temp;
 			long j;
+
 			if (asc)
 			{
 				for (long i = 1; i < array.Length; i++)
@@ -53,6 +61,7 @@ namespace SortAlgsTimes
 					temp = array[i];
 					for (j = i - 1; j >= 0 && array[j].CompareTo(temp) > 0; j--)
 					{
+						comparisonCount++;
 						array[j + 1] = array[j];
 					}
 					array[j + 1] = temp;
@@ -65,6 +74,7 @@ namespace SortAlgsTimes
 					temp = array[i];
 					for (j = i - 1; j >= 0 && array[j].CompareTo(temp) < 0; j--)
 					{
+						comparisonCount++;
 						array[j + 1] = array[j];
 					}
 					array[j + 1] = temp;
@@ -74,6 +84,7 @@ namespace SortAlgsTimes
 		
 		public static void MergeSort<T>(T[] array, int left, int right, bool asc) where T : IComparable<T>
 		{
+			comparisonCount = 0;
 			int mid;
 
 			if (right > left)
@@ -99,6 +110,7 @@ namespace SortAlgsTimes
 			{
 				while ((left <= left_end) && (mid <= right))
 				{
+					comparisonCount++;
 					if (array[left].CompareTo(array[mid]) <= 0)
 						temp[tmp_pos++] = array[left++];
 					else
@@ -109,6 +121,7 @@ namespace SortAlgsTimes
 			{
 				while ((left <= left_end) && (mid <= right))
 				{
+					comparisonCount++;
 					if (array[left].CompareTo(array[mid]) >= 0)
 						temp[tmp_pos++] = array[left++];
 					else

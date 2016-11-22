@@ -188,7 +188,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.BubbleSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					bubbleSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 1:
 					_sortedInt16Array = new short[_arraySize];
@@ -200,7 +199,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.BubbleSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					bubbleSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 2:
 					_sortedInt32Array = new int[_arraySize];
@@ -212,7 +210,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.BubbleSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					bubbleSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 3:
 					_sortedInt64Array = new long[_arraySize];
@@ -224,7 +221,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.BubbleSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					bubbleSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 4:
 					_sortedStringArray = new string[_arraySize];
@@ -236,11 +232,11 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.BubbleSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					bubbleSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				default:
 					break;
 			}
+			bubbleSortTime.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonCount + " comparisons";
 			enableShowSortArrayCheckBox();
 		}
 
@@ -266,7 +262,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.InsertionSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					insertionSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 1:
 					_sortedInt16Array = new short[_arraySize];
@@ -278,7 +273,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.InsertionSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					insertionSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 2:
 					_sortedInt32Array = new int[_arraySize];
@@ -290,7 +284,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.InsertionSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					insertionSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 3:
 					_sortedInt64Array = new long[_arraySize];
@@ -302,7 +295,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.InsertionSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					insertionSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 4:
 					_sortedStringArray = new string[_arraySize];
@@ -314,11 +306,11 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.InsertionSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					insertionSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				default:
 					break;
 			}
+			insertionSortTime.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonCount + " comparisons";
 			enableShowSortArrayCheckBox();
 		}
 
@@ -344,7 +336,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.MergeSort(_sortedByteArray, 0, _sortedByteArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					mergeSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 1:
 					_sortedInt16Array = new short[_arraySize];
@@ -356,7 +347,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.MergeSort(_sortedInt16Array, 0, _sortedInt16Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					mergeSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 2:
 					_sortedInt32Array = new int[_arraySize];
@@ -368,7 +358,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.MergeSort(_sortedInt32Array, 0, _sortedInt32Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					mergeSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 3:
 					_sortedInt64Array = new long[_arraySize];
@@ -380,7 +369,6 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.MergeSort(_sortedInt64Array, 0, _sortedInt64Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					mergeSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				case 4:
 					_sortedStringArray = new string[_arraySize];
@@ -392,11 +380,11 @@ namespace SortAlgsTimes
 					watch.Start();
 					SortAlgs.MergeSort(_sortedStringArray, 0, _sortedStringArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
-					mergeSortTime.Text = timeSpanToText(watch.Elapsed);
 					break;
 				default:
 					break;
 			}
+			mergeSortTime.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonCount + " comparisons";
 			enableShowSortArrayCheckBox();
 		}
 	}
