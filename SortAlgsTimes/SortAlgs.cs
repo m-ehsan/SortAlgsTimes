@@ -4,7 +4,7 @@ namespace SortAlgsTimes
 {
 	public static class SortAlgs
 	{
-		public static ulong comparisonCount;
+		public static ulong comparisonCount;// Number of comparisons(between array elements) done by sort algorithms
 
 		private static void swap<T>(ref T lhs, ref T rhs)
 		{
@@ -14,6 +14,7 @@ namespace SortAlgsTimes
 			rhs = temp;
 		}
 
+		// Bubble Sort algorithm
 		public static void BubbleSort<T>(T[] array, bool asc) where T : IComparable<T>
 		{
 			comparisonCount = 0;
@@ -48,6 +49,7 @@ namespace SortAlgsTimes
 			}
 		}
 
+		// Insertion Sort algorithm
 		public static void InsertionSort<T>(T[] array, bool asc) where T :IComparable<T>
 		{
 			comparisonCount = 0;
@@ -81,7 +83,8 @@ namespace SortAlgsTimes
 				}
 			}
 		}
-		
+
+		// Merge Sort algorithm
 		public static void MergeSort<T>(T[] array, int left, int right, bool asc) where T : IComparable<T>
 		{
 			comparisonCount = 0;
@@ -139,6 +142,81 @@ namespace SortAlgsTimes
 			{
 				array[right] = temp[right];
 				right--;
+			}
+		}
+
+		// Heap Sort algorithm
+		public static void HeapSort<T>(T[] array, bool asc) where T : IComparable<T>
+		{
+			comparisonCount = 0;
+			heapify(array, asc);
+
+			int end = array.Length - 1;
+
+			while (end > 0)
+			{
+				swap(ref array[end], ref array[0]);
+				end--;
+				shiftDown(array, 0, end, asc);
+			}
+		}
+
+		private static void heapify<T>(T[] array, bool asc) where T : IComparable<T>
+		{
+			int start = (array.Length - 1 - 1) / 2;
+
+			while (start >= 0)
+			{
+				shiftDown(array, start, array.Length - 1, asc);
+				start--;
+			}
+		}
+
+		private static void shiftDown<T>(T[] array, int start, int end, bool asc) where T : IComparable<T>
+		{
+			int root = start;
+
+			while (2 * root + 1 <= end)
+			{
+				int child = 2 * root + 1;
+				int _swap= root;
+
+				if (asc)
+				{
+					comparisonCount++;
+					if (array[_swap].CompareTo(array[child]) < 0)
+					{
+						_swap = child;
+					}
+					comparisonCount++;
+					if ((child + 1 <= end) && (array[_swap].CompareTo(array[child + 1]) < 0))
+					{
+						_swap = child + 1;
+					}
+				}
+				else
+				{
+					comparisonCount++;
+					if (array[_swap].CompareTo(array[child]) > 0)
+					{
+						_swap = child;
+					}
+					comparisonCount++;
+					if ((child + 1 <= end) && (array[_swap].CompareTo(array[child + 1]) > 0))
+					{
+						_swap = child + 1;
+					}
+				}
+				
+				if (_swap == root)
+				{
+					return;
+				}
+				else
+				{
+					swap(ref array[root], ref array[_swap]);
+					root = _swap;
+				}
 			}
 		}
 	}

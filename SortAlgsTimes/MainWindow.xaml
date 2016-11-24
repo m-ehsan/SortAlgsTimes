@@ -7,9 +7,9 @@
         mc:Ignorable="d"
 		MaxWidth="525"
 		MinWidth="525"
-		MaxHeight="476"
-		MinHeight="476"
-		Title="Sort Algorithms Times" Height="476" Width="525">
+		MaxHeight="511"
+		MinHeight="511"
+		Title="Sort Algorithms Times" Height="511" Width="525">
 	<StackPanel>
 
 		<Grid x:Name="topGrid" VerticalAlignment="Top" Height="95">
@@ -46,21 +46,24 @@
 
 		<Grid VerticalAlignment="Top" Height="269">
 			<Line X1="20" Y1="0" X2="490" Y2="0" Stroke="#FF9F9F9F" StrokeThickness="1"/>
+			<ComboBox x:Name="sortOrderComboBox" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Width="100" Height="20" FontSize="11">
+				<ComboBoxItem Content="Ascending"/>
+				<ComboBoxItem Content="Descending"/>
+			</ComboBox>
 			<Button x:Name="bubbleSortButton" Content="Bubble Sort" HorizontalAlignment="Left" Margin="45,41,0,0" VerticalAlignment="Top" Width="100" IsEnabled="False" Click="bubbleSortButton_Click"/>
 			<TextBlock x:Name="bubbleSortTime" Width="350" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="165,41,0,0" Text="" FontSize="14"/>
 			<Button x:Name="insertionSortButton" Content="Insertion Sort" HorizontalAlignment="Left" Margin="45,76,0,0" VerticalAlignment="Top" Width="100" IsEnabled="False" Click="insertionSortButton_Click"/>
 			<TextBlock x:Name="insertionSortTime" Width="350" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="165,76,0,0" Text="" FontSize="14"/>
 			<Button x:Name="mergeSortButton" Content="Merge Sort" HorizontalAlignment="Left" Margin="45,111,0,0" VerticalAlignment="Top" Width="100" IsEnabled="False" Click="mergeSortButton_Click"/>
 			<TextBlock x:Name="mergeSortTime" Width="350" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="165,111,0,0" Text="" FontSize="14"/>
-			<CheckBox x:Name="showSortedArrayCheckBox" Content="Show sorted array" HorizontalAlignment="Left" Margin="353,138,0,0" VerticalAlignment="Top" IsEnabled="False" Checked="showSortedArrayCheckBox_Checked" Unchecked="showSortedArrayCheckBox_Unchecked"/>
-			<ScrollViewer x:Name="sortedArrayContentScrollViewer" HorizontalAlignment="Left" Margin="10,166,0,-18" VerticalAlignment="Top" Visibility="Hidden" Background="#FFDEDEDE" Width="495" Height="80">
+			<Button x:Name="heapSortButton" Content="Heap Sort" HorizontalAlignment="Left" Margin="45,146,0,0" VerticalAlignment="Top" Width="100" IsEnabled="False" Click="heapSortButton_Click"/>
+			<TextBlock x:Name="heapSortTime" Width="350" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="165,146,0,0" Text="" FontSize="14"/>
+			<CheckBox x:Name="showSortedArrayCheckBox" Content="Show sorted array" HorizontalAlignment="Left" Margin="353,173,0,0" VerticalAlignment="Top" IsEnabled="False" Checked="showSortedArrayCheckBox_Checked" Unchecked="showSortedArrayCheckBox_Unchecked"/>
+			<ScrollViewer x:Name="sortedArrayContentScrollViewer" HorizontalAlignment="Left" Margin="10,201,0,-18" VerticalAlignment="Top" Visibility="Hidden" Background="#FFDEDEDE" Width="495" Height="80">
 				<TextBlock x:Name="sortedArrayContentTextBlock" TextWrapping="Wrap" Text="[EMPTY]"/>
 			</ScrollViewer>
-			<Button x:Name="proceedDisplayingSortedArrayButton" Content="Proceed" Width="47" Height="25" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="232,193,232,0" IsTabStop="False" IsEnabled="False" Click="proceedDisplayingSortedArray_Click"/>
-			<ComboBox x:Name="sortOrderComboBox" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Width="100" Height="20" FontSize="11">
-				<ComboBoxItem Content="Ascending"/>
-				<ComboBoxItem Content="Descending"/>
-			</ComboBox>
+			<Button x:Name="proceedDisplayingSortedArrayButton" Content="Proceed" Width="47" Height="25" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="232,228,232,0" IsTabStop="False" IsEnabled="False" Click="proceedDisplayingSortedArray_Click"/>
+			
 		</Grid>
 
 	</StackPanel>

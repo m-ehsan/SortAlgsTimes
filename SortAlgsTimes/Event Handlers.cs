@@ -387,5 +387,79 @@ namespace SortAlgsTimes
 			mergeSortTime.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonCount + " comparisons";
 			enableShowSortArrayCheckBox();
 		}
+
+		private void heapSortButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (_lastUsedSortOrder != (sortOrderComboBox.SelectedIndex == 0) ? true : false)
+			{
+				sortedArrayContentTextBlock.Text = "[EMPTY]";
+				showSortedArrayCheckBox.IsChecked = false;
+				showSortedArrayCheckBox.IsEnabled = false;
+			}
+			_lastUsedSortOrder = (sortOrderComboBox.SelectedIndex == 0) ? true : false;
+
+			switch (arrayTypesComboBox.SelectedIndex)
+			{
+				case 0:
+					_sortedByteArray = new byte[_arraySize];
+					for (uint i = 0; i < _arraySize; i++)
+					{
+						_sortedByteArray[i] = _byteArray[i];
+					}
+					watch.Reset();
+					watch.Start();
+					SortAlgs.HeapSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					watch.Stop();
+					break;
+				case 1:
+					_sortedInt16Array = new short[_arraySize];
+					for (uint i = 0; i < _arraySize; i++)
+					{
+						_sortedInt16Array[i] = _Int16Array[i];
+					}
+					watch.Reset();
+					watch.Start();
+					SortAlgs.HeapSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					watch.Stop();
+					break;
+				case 2:
+					_sortedInt32Array = new int[_arraySize];
+					for (uint i = 0; i < _arraySize; i++)
+					{
+						_sortedInt32Array[i] = _Int32Array[i];
+					}
+					watch.Reset();
+					watch.Start();
+					SortAlgs.HeapSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					watch.Stop();
+					break;
+				case 3:
+					_sortedInt64Array = new long[_arraySize];
+					for (uint i = 0; i < _arraySize; i++)
+					{
+						_sortedInt64Array[i] = _Int64Array[i];
+					}
+					watch.Reset();
+					watch.Start();
+					SortAlgs.HeapSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					watch.Stop();
+					break;
+				case 4:
+					_sortedStringArray = new string[_arraySize];
+					for (uint i = 0; i < _arraySize; i++)
+					{
+						_sortedStringArray[i] = _stringArray[i];
+					}
+					watch.Reset();
+					watch.Start();
+					SortAlgs.HeapSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					watch.Stop();
+					break;
+				default:
+					break;
+			}
+			heapSortTime.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonCount + " comparisons";
+			enableShowSortArrayCheckBox();
+		}
 	}
 }

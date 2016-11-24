@@ -24,7 +24,7 @@ namespace SortAlgsTimes
 		private uint _arraySize;
 		private short _minStringLength;
 		private short _maxStringLength;
-		private bool _lastUsedSortOrder;
+		private bool _lastUsedSortOrder;// "true" for ascending and "false" for descending
 		private Random rnd;
 		private Stopwatch watch = new Stopwatch();
 
@@ -51,7 +51,7 @@ namespace SortAlgsTimes
 
 			if (arrayElementsOrderComboBox.SelectedIndex != 0)
 			{
-				SortAlgs.MergeSort(_byteArray, 0, _byteArray.Length - 1, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
+				SortAlgs.HeapSort(_byteArray, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
 			}
 		}
 
@@ -66,7 +66,7 @@ namespace SortAlgsTimes
 
 			if (arrayElementsOrderComboBox.SelectedIndex != 0)
 			{
-				SortAlgs.MergeSort(_Int16Array, 0, _Int16Array.Length - 1, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
+				SortAlgs.HeapSort(_Int16Array, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
 			}
 		}
 
@@ -81,7 +81,7 @@ namespace SortAlgsTimes
 
 			if (arrayElementsOrderComboBox.SelectedIndex != 0)
 			{
-				SortAlgs.MergeSort(_Int32Array, 0, _Int32Array.Length - 1, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
+				SortAlgs.HeapSort(_Int32Array, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
 			}
 		}
 
@@ -96,7 +96,7 @@ namespace SortAlgsTimes
 
 			if (arrayElementsOrderComboBox.SelectedIndex != 0)
 			{
-				SortAlgs.MergeSort(_Int64Array, 0, _Int64Array.Length - 1, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
+				SortAlgs.HeapSort(_Int64Array, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
 			}
 		}
 
@@ -132,7 +132,7 @@ namespace SortAlgsTimes
 
 			if (arrayElementsOrderComboBox.SelectedIndex != 0)
 			{
-				SortAlgs.MergeSort(_stringArray, 0, _stringArray.Length - 1, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
+				SortAlgs.HeapSort(_stringArray, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
 			}
 		}
 
@@ -287,6 +287,7 @@ namespace SortAlgsTimes
 			bubbleSortButton.IsEnabled = false;
 			insertionSortButton.IsEnabled = false;
 			mergeSortButton.IsEnabled = false;
+			heapSortButton.IsEnabled = false;
 		}
 
 		private void enableControls()
@@ -295,6 +296,7 @@ namespace SortAlgsTimes
 			bubbleSortButton.IsEnabled = true;
 			insertionSortButton.IsEnabled = true;
 			mergeSortButton.IsEnabled = true;
+			heapSortButton.IsEnabled = true;
 		}
 
 		private void enableShowSortArrayCheckBox()
@@ -324,6 +326,7 @@ namespace SortAlgsTimes
 			bubbleSortTime.Text = "";
 			insertionSortTime.Text = "";
 			mergeSortTime.Text = "";
+			heapSortTime.Text = "";
 		}
 
 		private void swap<T>(ref T lhs, ref T rhs)
