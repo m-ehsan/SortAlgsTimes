@@ -5,6 +5,7 @@ A WPF project that caclulates and compares some sorting algorithms times.<br/>
 * Bubble sort
 * Insertion sort
 * Merge sort
+* Heap sort
 
 ## Features
 * Array size is defined by user
