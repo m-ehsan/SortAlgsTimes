@@ -24,7 +24,7 @@ namespace SortAlgsTimes
 		private uint _arraySize;
 		private short _minStringLength;
 		private short _maxStringLength;
-		private bool _lastUsedSortOrder;// "true" for ascending and "false" for descending
+		private bool _lastUsedSortOrder; // "true" for ascending and "false" for descending
 		private Random rnd;
 		private Stopwatch watch = new Stopwatch();
 
@@ -286,6 +286,7 @@ namespace SortAlgsTimes
 			showSortedArrayCheckBox.IsEnabled = false;
 			bubbleSortButton.IsEnabled = false;
 			insertionSortButton.IsEnabled = false;
+			quickSortButton.IsEnabled = false;
 			mergeSortButton.IsEnabled = false;
 			heapSortButton.IsEnabled = false;
 		}
@@ -295,11 +296,12 @@ namespace SortAlgsTimes
 			showArrayCheckBox.IsEnabled = true;
 			bubbleSortButton.IsEnabled = true;
 			insertionSortButton.IsEnabled = true;
+			quickSortButton.IsEnabled = true;
 			mergeSortButton.IsEnabled = true;
 			heapSortButton.IsEnabled = true;
 		}
 
-		private void enableShowSortArrayCheckBox()
+		private void enableShowSortedArrayCheckBox()
 		{
 			showSortedArrayCheckBox.IsEnabled = true;
 		}
@@ -325,6 +327,7 @@ namespace SortAlgsTimes
 			sortedArrayContentTextBlock.Text = "[EMPTY]";
 			bubbleSortTime.Text = "";
 			insertionSortTime.Text = "";
+			quickSortTime.Text = "";
 			mergeSortTime.Text = "";
 			heapSortTime.Text = "";
 		}

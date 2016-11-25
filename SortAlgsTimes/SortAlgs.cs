@@ -4,7 +4,7 @@ namespace SortAlgsTimes
 {
 	public static class SortAlgs
 	{
-		public static ulong comparisonCount;// Number of comparisons(between array elements) done by sort algorithms
+		public static ulong comparisonCount; // Number of comparisons(between array elements) done by sort algorithms
 
 		private static void swap<T>(ref T lhs, ref T rhs)
 		{
@@ -17,8 +17,6 @@ namespace SortAlgsTimes
 		// Bubble Sort algorithm
 		public static void BubbleSort<T>(T[] array, bool asc) where T : IComparable<T>
 		{
-			comparisonCount = 0;
-
 			if (asc)
 			{
 				for (uint i = 0; i < array.Length - 1; i++)
@@ -52,7 +50,6 @@ namespace SortAlgsTimes
 		// Insertion Sort algorithm
 		public static void InsertionSort<T>(T[] array, bool asc) where T :IComparable<T>
 		{
-			comparisonCount = 0;
 			T temp;
 			long j;
 
@@ -84,10 +81,74 @@ namespace SortAlgsTimes
 			}
 		}
 
+		// Quick Sort algorithm
+		public static void QuickSort<T>(T[] array, int lo, int hi, bool asc) where T : IComparable<T>
+		{
+			if (lo < hi)
+			{
+				int p = partition(array, lo, hi, asc);
+				QuickSort(array, lo, p, asc);
+				QuickSort(array, p + 1, hi, asc);
+			}
+		}
+
+		private static int partition<T>(T[] array, int lo, int hi, bool asc) where T : IComparable<T>
+		{
+			T pivot = array[lo];
+			int i = lo - 1;
+			int j = hi + 1;
+
+			if (asc)
+			{
+				while (true)
+				{
+					do
+					{
+						i++;
+						comparisonCount++;
+					} while (array[i].CompareTo(pivot) < 0);
+
+					do
+					{
+						j--;
+						comparisonCount++;
+					} while (array[j].CompareTo(pivot) > 0);
+
+					if (i >= j)
+					{
+						return j;
+					}
+					swap(ref array[i], ref array[j]);
+				}
+			}
+			else
+			{
+				while (true)
+				{
+					do
+					{
+						i++;
+						comparisonCount++;
+					} while (array[i].CompareTo(pivot) > 0);
+
+					do
+					{
+						j--;
+						comparisonCount++;
+					} while (array[j].CompareTo(pivot) < 0);
+
+					if (i >= j)
+					{
+						return j;
+					}
+					swap(ref array[i], ref array[j]);
+				}
+			}
+		}
+
 		// Merge Sort algorithm
 		public static void MergeSort<T>(T[] array, int left, int right, bool asc) where T : IComparable<T>
 		{
-			comparisonCount = 0;
 			int mid;
 
 			if (right > left)
@@ -148,7 +209,6 @@ namespace SortAlgsTimes
 		// Heap Sort algorithm
 		public static void HeapSort<T>(T[] array, bool asc) where T : IComparable<T>
 		{
-			comparisonCount = 0;
 			heapify(array, asc);
 
 			int end = array.Length - 1;
