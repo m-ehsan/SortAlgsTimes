@@ -4,6 +4,7 @@ A WPF project that caclulates and compares some sorting algorithms times.<br/>
 ## Sort algorithms used in this project
 * Bubble sort
 * Insertion sort
+* Quick sort
 * Merge sort
 * Heap sort
 
