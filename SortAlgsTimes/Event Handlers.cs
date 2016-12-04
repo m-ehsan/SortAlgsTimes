@@ -348,7 +348,7 @@ namespace SortAlgsTimes
 					}
 					watch.Reset();
 					watch.Start();
-					SortAlgs.QuickSort(_sortedInt16Array, 1, _sortedInt16Array.Length, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					SortAlgs.QuickSort(_sortedInt16Array, 0, _sortedInt16Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
 					break;
 				case 2:
@@ -359,7 +359,7 @@ namespace SortAlgsTimes
 					}
 					watch.Reset();
 					watch.Start();
-					SortAlgs.QuickSort(_sortedInt32Array, 1, _sortedInt32Array.Length, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					SortAlgs.QuickSort(_sortedInt32Array, 0, _sortedInt32Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
 					break;
 				case 3:
@@ -370,7 +370,7 @@ namespace SortAlgsTimes
 					}
 					watch.Reset();
 					watch.Start();
-					SortAlgs.QuickSort(_sortedInt64Array, 1, _sortedInt64Array.Length, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					SortAlgs.QuickSort(_sortedInt64Array, 0, _sortedInt64Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
 					break;
 				case 4:
@@ -381,7 +381,7 @@ namespace SortAlgsTimes
 					}
 					watch.Reset();
 					watch.Start();
-					SortAlgs.QuickSort(_sortedStringArray, 1, _sortedStringArray.Length, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					SortAlgs.QuickSort(_sortedStringArray, 0, _sortedStringArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
 					watch.Stop();
 					break;
 				default:
