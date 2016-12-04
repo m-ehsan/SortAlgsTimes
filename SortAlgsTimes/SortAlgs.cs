@@ -58,6 +58,7 @@ namespace SortAlgsTimes
 				for (long i = 1; i < array.Length; i++)
 				{
 					temp = array[i];
+					comparisonCount++;
 					for (j = i - 1; j >= 0 && array[j].CompareTo(temp) > 0; j--)
 					{
 						comparisonCount++;
@@ -71,6 +72,7 @@ namespace SortAlgsTimes
 				for (long i = 1; i < array.Length; i++)
 				{
 					temp = array[i];
+					comparisonCount++;
 					for (j = i - 1; j >= 0 && array[j].CompareTo(temp) < 0; j--)
 					{
 						comparisonCount++;
