@@ -25,6 +25,10 @@ namespace SortAlgsTimes
 		private short _minStringLength;
 		private short _maxStringLength;
 		private bool _lastUsedSortOrder; // "true" for ascending and "false" for descending
+		private bool error;
+
+		private ImplementationsWindow implementationsWindow;
+
 		private Random rnd;
 		private Stopwatch watch = new Stopwatch();
 
@@ -32,8 +36,9 @@ namespace SortAlgsTimes
 		{
 			InitializeComponent();
 			arrayTypesComboBox.SelectedIndex = 0;
-			arrayElementsOrderComboBox.SelectedIndex = 0;
+			arrayInitialOrderComboBox.SelectedIndex = 0;
 			sortOrderComboBox.SelectedIndex = 0;
+			sortAlgComboBox.SelectedIndex = 0;
 			initSringLengthBoundsComboBoxes();
 			stringLengthBoundComboBox1.SelectedIndex = 9;
 			stringLengthBoundComboBox2.SelectedIndex = 19;
@@ -49,9 +54,9 @@ namespace SortAlgsTimes
 				_byteArray[i] = (byte)rnd.Next(byte.MinValue, byte.MaxValue + 1);
 			}
 
-			if (arrayElementsOrderComboBox.SelectedIndex != 0)
+			if (arrayInitialOrderComboBox.SelectedIndex != 0)
 			{
-				SortAlgs.HeapSort(_byteArray, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
+				SortAlgs.HeapSort(_byteArray, (arrayInitialOrderComboBox.SelectedIndex == 1) ? true : false);
 			}
 		}
 
@@ -64,9 +69,9 @@ namespace SortAlgsTimes
 				_Int16Array[i] = (short)rnd.Next(short.MinValue, short.MaxValue + 1);
 			}
 
-			if (arrayElementsOrderComboBox.SelectedIndex != 0)
+			if (arrayInitialOrderComboBox.SelectedIndex != 0)
 			{
-				SortAlgs.HeapSort(_Int16Array, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
+				SortAlgs.HeapSort(_Int16Array, (arrayInitialOrderComboBox.SelectedIndex == 1) ? true : false);
 			}
 		}
 
@@ -79,9 +84,9 @@ namespace SortAlgsTimes
 				_Int32Array[i] = rnd.Next(int.MinValue, int.MaxValue);
 			}
 
-			if (arrayElementsOrderComboBox.SelectedIndex != 0)
+			if (arrayInitialOrderComboBox.SelectedIndex != 0)
 			{
-				SortAlgs.HeapSort(_Int32Array, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
+				SortAlgs.HeapSort(_Int32Array, (arrayInitialOrderComboBox.SelectedIndex == 1) ? true : false);
 			}
 		}
 
@@ -94,9 +99,9 @@ namespace SortAlgsTimes
 				_Int64Array[i] = (long)(long.MinValue + (rnd.NextDouble() * (ulong.MaxValue)));
 			}
 
-			if (arrayElementsOrderComboBox.SelectedIndex != 0)
+			if (arrayInitialOrderComboBox.SelectedIndex != 0)
 			{
-				SortAlgs.HeapSort(_Int64Array, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
+				SortAlgs.HeapSort(_Int64Array, (arrayInitialOrderComboBox.SelectedIndex == 1) ? true : false);
 			}
 		}
 
@@ -130,9 +135,9 @@ namespace SortAlgsTimes
 				}
 			}
 
-			if (arrayElementsOrderComboBox.SelectedIndex != 0)
+			if (arrayInitialOrderComboBox.SelectedIndex != 0)
 			{
-				SortAlgs.HeapSort(_stringArray, (arrayElementsOrderComboBox.SelectedIndex == 1) ? true : false);
+				SortAlgs.HeapSort(_stringArray, (arrayInitialOrderComboBox.SelectedIndex == 1) ? true : false);
 			}
 		}
 
@@ -284,26 +289,24 @@ namespace SortAlgsTimes
 		{
 			showArrayCheckBox.IsEnabled = false;
 			showSortedArrayCheckBox.IsEnabled = false;
-			bubbleSortButton.IsEnabled = false;
-			insertionSortButton.IsEnabled = false;
-			quickSortButton.IsEnabled = false;
-			mergeSortButton.IsEnabled = false;
-			heapSortButton.IsEnabled = false;
+			sortButton.IsEnabled = false;
 		}
 
 		private void enableControls()
 		{
 			showArrayCheckBox.IsEnabled = true;
-			bubbleSortButton.IsEnabled = true;
-			insertionSortButton.IsEnabled = true;
-			quickSortButton.IsEnabled = true;
-			mergeSortButton.IsEnabled = true;
-			heapSortButton.IsEnabled = true;
+			sortButton.IsEnabled = true;
 		}
 
 		private void enableShowSortedArrayCheckBox()
 		{
 			showSortedArrayCheckBox.IsEnabled = true;
+		}
+
+		private void disableShowSortedArrayCheckBox()
+		{
+			showSortedArrayCheckBox.IsChecked = false;
+			showSortedArrayCheckBox.IsEnabled = false;
 		}
 
 		private void clearUserData()
@@ -325,11 +328,7 @@ namespace SortAlgsTimes
 			disableControls();
 			arrayContentTextBlock.Text = "[EMPTY]";
 			sortedArrayContentTextBlock.Text = "[EMPTY]";
-			bubbleSortTime.Text = "";
-			insertionSortTime.Text = "";
-			quickSortTime.Text = "";
-			mergeSortTime.Text = "";
-			heapSortTime.Text = "";
+			sortResultTextBlock.Text = "";
 		}
 
 		private void swap<T>(ref T lhs, ref T rhs)

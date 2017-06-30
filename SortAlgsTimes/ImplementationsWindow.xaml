@@ -1,0 +1,341 @@
+﻿<Window x:Class="SortAlgsTimes.ImplementationsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SortAlgsTimes"
+        mc:Ignorable="d"
+        Title="Sort Algorithms Implementations" Height="468" Width="525">
+	<Grid Background="#FF1E1E1E">
+		<ComboBox x:Name="sortAlgsComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" Width="125" Height="23" FontSize="11" SelectionChanged="sortAlgsComboBox_SelectionChanged">
+			<ComboBoxItem Content="Bubble sort"/>
+			<ComboBoxItem Content="Insertion sort"/>
+			<ComboBoxItem Content="Quick sort"/>
+			<ComboBoxItem Content="Merge sort"/>
+			<ComboBoxItem Content="Heap sort"/>
+			<ComboBoxItem Content="Pigeonhole sort"/>
+			<ComboBoxItem Content="Counting sort"/>
+			<ComboBoxItem Content="Radix sort"/>
+			<ComboBoxItem Content="Shell sort"/>
+			<ComboBoxItem Content="Binary insertion sort"/>
+		</ComboBox>
+		<Line X1="0" Y1="33" X2="9999" Y2="33" Stroke="#FFF6F6F6"  StrokeThickness="0.7"/>
+		<ScrollViewer Margin="0,35,0,0" VerticalScrollBarVisibility="Auto">
+			<StackPanel x:Name="sortImplementationsStackPanel">
+				<TextBlock Visibility="Collapsed" Margin="5" Foreground="#FFDCDCDC" FontFamily="Consolas" xml:space="preserve"><Run Foreground="#FF57A64A">// Bubble Sort algorithm</Run>
+<Run Foreground="#FF569CD6">public void</Run> BubbleSort(<Run Foreground="#FF569CD6">int</Run>[] array)
+{
+    <Run Foreground="#FF569CD6">for</Run> (<Run Foreground="#FF569CD6">int</Run> i = 0; i &lt; array.Length - 1; i++)
+    {
+        <Run Foreground="#FF569CD6">for</Run> (<Run Foreground="#FF569CD6">int</Run> j = 0; i &lt; array.Length - i - 1; j++)
+        {
+            <Run Foreground="#FF569CD6">if</Run> (array[j] > array[j + 1])
+            {
+                swap(<Run Foreground="#FF569CD6">ref</Run> array[j], <Run Foreground="#FF569CD6">ref</Run> array[j + 1]);
+            }
+        }
+    }
+}
+				</TextBlock>
+				<TextBlock Visibility="Collapsed" Margin="5" Foreground="#FFDCDCDC" FontFamily="Consolas" xml:space="preserve"><Run Foreground="#FF57A64A">// Insertion Sort algorithm</Run>
+<Run Foreground="#FF569CD6">public void</Run> InsertionSort(<Run Foreground="#FF569CD6">int</Run>[] array)
+{
+    <Run Foreground="#FF569CD6">int</Run> temp;
+    <Run Foreground="#FF569CD6">int</Run> j;
+
+    <Run Foreground="#FF569CD6">for</Run> (<Run Foreground="#FF569CD6">int</Run> i = 0; i &lt; array.Length; i++)
+    {
+        temp = array[i];
+        <Run Foreground="#FF569CD6">for</Run> (j = i - 1; j >= 0 &amp;&amp; array[j] > temp; j--)
+        {
+            array[j + 1] = array[j];
+        }
+        array[j + 1] = temp;
+    }
+}
+				</TextBlock>
+				<TextBlock Visibility="Collapsed" Margin="5" Foreground="#FFDCDCDC" FontFamily="Consolas" xml:space="preserve"><Run Foreground="#FF57A64A">// Quick Sort algorithm</Run>
+<Run Foreground="#FF569CD6">public void</Run> QuickSort(<Run Foreground="#FF569CD6">int</Run>[] array, <Run Foreground="#FF569CD6">int</Run> lo, <Run Foreground="#FF569CD6">int</Run> hi)
+{
+    <Run Foreground="#FF569CD6">if</Run> (lo &lt; hi)
+    {
+        <Run Foreground="#FF569CD6">int</Run> p = partition(array, lo, hi);
+        QuickSort(array, lo, hi);
+        QuickSort(array, p + 1, hi);
+    }
+}
+
+<Run Foreground="#FF569CD6">public void</Run> partition(<Run Foreground="#FF569CD6">int</Run>[] array, <Run Foreground="#FF569CD6">int</Run> lo, <Run Foreground="#FF569CD6">int</Run> hi)
+{
+    <Run Foreground="#FF569CD6">int</Run> pivot = array[lo];
+    <Run Foreground="#FF569CD6">int</Run> i = lo - 1;
+    <Run Foreground="#FF569CD6">int</Run> j = hi + 1;
+
+    <Run Foreground="#FF569CD6">while</Run> (<Run Foreground="#FF569CD6">true</Run>)
+    {
+        <Run Foreground="#FF569CD6">do</Run>
+        {
+            i++;
+        } <Run Foreground="#FF569CD6">while</Run> (array[i] &lt; pivot)
+
+        <Run Foreground="#FF569CD6">do</Run>
+        {
+            j--;
+        } <Run Foreground="#FF569CD6">while</Run> (array[j] &gt; pivot)
+					
+        <Run Foreground="#FF569CD6">if</Run> (i &gt;= j)
+        {
+            <Run Foreground="#FF569CD6">return</Run> j;
+        }
+        swap(<Run Foreground="#FF569CD6">ref</Run> array[i], <Run Foreground="#FF569CD6">ref</Run> array[j]);
+    }
+}
+				</TextBlock>
+				<TextBlock Visibility="Collapsed" Margin="5" Foreground="#FFDCDCDC" FontFamily="Consolas" xml:space="preserve"><Run Foreground="#FF57A64A">// Merge Sort algorithm</Run>
+<Run Foreground="#FF569CD6">public void</Run> MergeSort(<Run Foreground="#FF569CD6">int</Run>[] array, <Run Foreground="#FF569CD6">int</Run> left, <Run Foreground="#FF569CD6">int</Run> right)
+{
+    <Run Foreground="#FF569CD6">int</Run> mid;
+
+    <Run Foreground="#FF569CD6">if</Run> (right &gt; left)
+    {
+        mid = (right + left) / 2;
+
+        MergeSort(array, left, mid);
+        MergeSort(array, mid + 1, right);
+        Merge(array, left, mid + 1, right);
+    }
+}
+
+<Run Foreground="#FF569CD6">public void</Run> Merge(<Run Foreground="#FF569CD6">int</Run>[] array, <Run Foreground="#FF569CD6">int</Run> left, <Run Foreground="#FF569CD6">int</Run> mid <Run Foreground="#FF569CD6">int</Run> right)
+{
+    <Run Foreground="#FF569CD6">int</Run> temp = new int[array.Length];
+    <Run Foreground="#FF569CD6">int</Run> i, left_end, num_elements, tmp_pos;
+
+    left_end = mid - 1;
+    tmp_pos = left;
+    num_elements = right - left + 1;
+
+    <Run Foreground="#FF569CD6">while</Run> ((left &lt;= left_end) &amp;&amp; (mid &lt;= right))
+    {
+        <Run Foreground="#FF569CD6">if</Run> (array[left] &lt;= array[mid])
+            temp[tmp_pos++] = array[left++];
+        <Run Foreground="#FF569CD6">else</Run>
+            temp[tmp_pos++] = array[mid++];
+    }
+
+    <Run Foreground="#FF569CD6">while</Run> (left &lt;= left_end)
+        temp[tmp_pos++] = array[left++];
+
+    <Run Foreground="#FF569CD6">while</Run> (mid &lt;= right)
+        temp[tmp_pos++] = array[mid++];
+
+    <Run Foreground="#FF569CD6">for</Run> (i = 0; i &lt; num_elements; i++)
+    {
+        array[right] = temp[right];
+        right--;
+    }
+}
+				</TextBlock>
+				<TextBlock Visibility="Collapsed" Margin="5" Foreground="#FFDCDCDC" FontFamily="Consolas" xml:space="preserve"><Run Foreground="#FF57A64A">// Heap Sort algorithm</Run>
+<Run Foreground="#FF569CD6">public void</Run> HeapSort(<Run Foreground="#FF569CD6">int</Run>[] array)
+{
+    heapify(array);
+
+    <Run Foreground="#FF569CD6">int</Run> end = array.Length - 1;
+
+    <Run Foreground="#FF569CD6">while</Run> (end &gt; 0)
+    {
+        swap(<Run Foreground="#FF569CD6">ref</Run> array[end], <Run Foreground="#FF569CD6">ref</Run> array[0]);
+        end--;
+        shiftDown(array, 0, end);
+    }
+}
+
+<Run Foreground="#FF569CD6">public void</Run> heapify(<Run Foreground="#FF569CD6">int</Run>[] array)
+{
+    <Run Foreground="#FF569CD6">int</Run> start = (array.Length - 2) / 2;
+
+    <Run Foreground="#FF569CD6">while</Run> (start &gt;= 0)
+    {
+        shiftDown(array, start, array.Length - 1);
+        start--;
+    }
+}
+
+<Run Foreground="#FF569CD6">public void</Run> shiftDown(<Run Foreground="#FF569CD6">int</Run>[] array, <Run Foreground="#FF569CD6">int</Run> start, <Run Foreground="#FF569CD6">int</Run> end)
+{
+    <Run Foreground="#FF569CD6">int</Run> root = start;
+
+    <Run Foreground="#FF569CD6">while</Run> (2 * root + 1 &lt;= end)
+    {
+        <Run Foreground="#FF569CD6">int</Run> child = 2 * root + 1;
+        <Run Foreground="#FF569CD6">int</Run> _swap = root;
+
+        <Run Foreground="#FF569CD6">if</Run> (array[_swap] &lt; array[child])
+            _swap = child;
+
+        <Run Foreground="#FF569CD6">if</Run> ((child + 1 &lt;= end) &amp;&amp; (array[_swap] &lt; array[child + 1]))
+            _swap = child + 1;
+
+        <Run Foreground="#FF569CD6">if</Run> (_swap == root)
+            <Run Foreground="#FF569CD6">return</Run>;
+        <Run Foreground="#FF569CD6">else</Run>
+        {
+            swap(<Run Foreground="#FF569CD6">ref</Run> array[root], <Run Foreground="#FF569CD6">ref</Run> array[_swap]);
+            root = _swap;
+        }
+    }
+}
+				</TextBlock>
+				<TextBlock Visibility="Collapsed" Margin="5" Foreground="#FFDCDCDC" FontFamily="Consolas" xml:space="preserve"><Run Foreground="#FF57A64A">// Pigeonhole Sort algorithm</Run>
+<Run Foreground="#FF569CD6">public void</Run> PigeonholeSort(<Run Foreground="#FF569CD6">short</Run>[] array)
+{
+    <Run Foreground="#FF569CD6">short</Run> min = array[0];
+    <Run Foreground="#FF569CD6">short</Run> max = array[0];
+
+    <Run Foreground="#FF569CD6">foreach</Run> (<Run Foreground="#FF569CD6">short</Run> item <Run Foreground="#FF569CD6">in</Run> array)
+    {
+        <Run Foreground="#FF569CD6">if</Run> (item &lt; min)
+        {
+            min = item;
+        }
+        <Run Foreground="#FF569CD6">if</Run> (item &gt; max)
+        {
+            max = item;
+        }
+    }
+
+    <Run Foreground="#FF569CD6">int</Run> size = max - min + 1;
+
+    <Run Foreground="#FF569CD6">int</Run>[] holes = <Run Foreground="#FF569CD6">new int</Run>[size];
+
+    <Run Foreground="#FF569CD6">foreach</Run> (<Run Foreground="#FF569CD6">short</Run> item <Run Foreground="#FF569CD6">in</Run> array)
+    {
+        holes[item - min]++;
+    }
+
+    <Run Foreground="#FF569CD6">int</Run> i = 0;
+    <Run Foreground="#FF569CD6">for</Run> (<Run Foreground="#FF569CD6">int</Run> j = 0; j &lt; size; j++)
+    {
+        <Run Foreground="#FF569CD6">while</Run> (holes[j]-- &gt; 0)
+        {
+            array[i++] = (<Run Foreground="#FF569CD6">short</Run>)(j + min);
+        }
+    }
+}
+				</TextBlock>
+				<TextBlock Visibility="Collapsed" Margin="5" Foreground="#FFDCDCDC" FontFamily="Consolas" xml:space="preserve"><Run Foreground="#FF57A64A">// Counting Sort algorithm</Run>
+<Run Foreground="#FF569CD6">public void</Run> CountingSort(<Run Foreground="#FF569CD6">short</Run>[] array)
+{
+    <Run Foreground="#FF569CD6">short</Run> min = array[0];
+    <Run Foreground="#FF569CD6">short</Run> max = array[0];
+
+    <Run Foreground="#FF569CD6">foreach</Run> (<Run Foreground="#FF569CD6">short</Run> item <Run Foreground="#FF569CD6">in</Run> array)
+    {
+        <Run Foreground="#FF569CD6">if</Run> (item &lt; min)
+        {
+            min = item;
+        }
+        <Run Foreground="#FF569CD6">if</Run> (item &gt; max)
+        {
+            max = item;
+        }
+    }
+
+    <Run Foreground="#FF569CD6">int</Run>[] counts = <Run Foreground="#FF569CD6">new int</Run>[max - min + 1];
+
+    <Run Foreground="#FF569CD6">foreach</Run> (<Run Foreground="#FF569CD6">short</Run> item <Run Foreground="#FF569CD6">in</Run> array)
+    {
+        counts[item - min]++;
+    }
+
+    counts[0]--;
+    <Run Foreground="#FF569CD6">for</Run> (<Run Foreground="#FF569CD6">int</Run> i = 1; j &lt; counts.Length; i++)
+    {
+        counts[i] = counts[i] + counts[i - 1];
+    }
+    <Run Foreground="#FF569CD6">short</Run>[] sortedArray = <Run Foreground="#FF569CD6">new short</Run>[array.Length];
+
+    <Run Foreground="#FF569CD6">for</Run> (<Run Foreground="#FF569CD6">int</Run> i = array.Length - 1; i &gt;= 0; i--)
+    {
+        sortedArray[counts[array[i] - min]--] = array[i];
+    }
+
+    <Run Foreground="#FF4EC9B0">Array</Run>.Copy(sortedArray, array, array.Length);
+}
+				</TextBlock>
+				<TextBlock Visibility="Collapsed" Margin="5" Foreground="#FFDCDCDC" FontFamily="Consolas" xml:space="preserve"><Run Foreground="#FF57A64A">// Radix Sort algorithm</Run>
+<Run Foreground="#FF569CD6">public void</Run> RadixSort(<Run Foreground="#FF569CD6">int</Run>[] array)
+{
+    <Run Foreground="#FF569CD6">int</Run> i, j;
+    <Run Foreground="#FF569CD6">int</Run>[] tmp = <Run Foreground="#FF569CD6">new int</Run>[array.Length];
+
+    <Run Foreground="#FF569CD6">for</Run> (<Run Foreground="#FF569CD6">int</Run> shift = 31; shift &gt; -1; shift--)
+    {
+        j = 0;
+        <Run Foreground="#FF569CD6">for</Run> (i = 0; i &lt; array.Length; i++)
+        {
+            <Run Foreground="#FF569CD6">bool</Run> move = (array[i] &lt;&lt; shift) &gt;= 0;
+            <Run Foreground="#FF569CD6">if</Run> (shift == 0 ? !move : move)
+                array[i - j] = array[i];
+            <Run Foreground="#FF569CD6">else</Run>
+                tmp[j++] = array[i];
+        }
+        <Run Foreground="#FF4EC9B0">Array</Run>.Copy(tmp, 0, array, array.Length - j, j);
+    }
+}
+				</TextBlock>
+				<TextBlock Visibility="Collapsed" Margin="5" Foreground="#FFDCDCDC" FontFamily="Consolas" xml:space="preserve"><Run Foreground="#FF57A64A">// Shell Sort algorithm</Run>
+<Run Foreground="#FF569CD6">public void</Run> ShellSort(<Run Foreground="#FF569CD6">int</Run>[] array)
+{
+    <Run Foreground="#FF569CD6">int</Run> gap = array.Length / 2;
+    <Run Foreground="#FF569CD6">int</Run> temp;
+
+    <Run Foreground="#FF569CD6">while</Run> (gap &gt; 0)
+    {
+        <Run Foreground="#FF569CD6">for</Run> (i = 0; i + gap &lt; array.Length; i++)
+        {
+            <Run Foreground="#FF569CD6">int</Run> j = i + gap;
+            temp = array[j];
+
+            <Run Foreground="#FF569CD6">while</Run> (j - gap &gt;= 0 &amp;&amp; temp &lt; array[j - gap])
+            {
+                array[j] = array[j - gap];
+                j = j - gap;
+            }
+            array[j] = temp;
+        }
+        gap = gap / 2;
+    }
+}
+				</TextBlock>
+				<TextBlock Visibility="Collapsed" Margin="5" Foreground="#FFDCDCDC" FontFamily="Consolas" xml:space="preserve"><Run Foreground="#FF57A64A">// Binary Insertion Sort algorithm</Run>
+<Run Foreground="#FF569CD6">public void</Run> BinaryInsertionSort(<Run Foreground="#FF569CD6">int</Run>[] array)
+{
+    <Run Foreground="#FF569CD6">for</Run> (<Run Foreground="#FF569CD6">int</Run> i = 1; i &lt; array.Length; i++)
+    {
+        <Run Foreground="#FF569CD6">int</Run> low = 0;
+        <Run Foreground="#FF569CD6">int</Run> high = i - 1;
+        <Run Foreground="#FF569CD6">int</Run> temp = array[i];
+
+        <Run Foreground="#FF569CD6">while</Run> (low &lt;= high)
+        {
+            <Run Foreground="#FF569CD6">int</Run> mid = (low + high) / 2;
+
+            <Run Foreground="#FF569CD6">if</Run> (temp &lt; array[mid])
+                high = mid - 1;
+            <Run Foreground="#FF569CD6">else</Run>
+                low = mid + 1;
+        }
+
+        <Run Foreground="#FF569CD6">for</Run> (<Run Foreground="#FF569CD6">int</Run> j = i - 1; j &gt;= low; j--)
+            array[j + 1] = array[j];
+
+        array[low] = temp;
+    }
+}
+				</TextBlock>
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+</Window>

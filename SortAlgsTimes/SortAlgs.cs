@@ -2,9 +2,11 @@
 
 namespace SortAlgsTimes
 {
+	public enum SortAlgsEnum { BUBBLE_SORT, INSERTION_SORT, MERGE_SORT, QUICK_SORT, HEAP_SORT, PIGEON_SORT, COUNT_SORT, RADIX_SORT, SHELL_SORT, BINARY_INSERTION_SORT };
+
 	public static class SortAlgs
 	{
-		public static ulong comparisonCount; // Number of comparisons(between array elements) done by sort algorithms
+		public static ulong comparisonsCount; // Number of comparisons(between array elements) done by sort algorithms
 
 		private static void swap<T>(ref T lhs, ref T rhs)
 		{
@@ -19,11 +21,11 @@ namespace SortAlgsTimes
 		{
 			if (asc)
 			{
-				for (uint i = 0; i < array.Length - 1; i++)
+				for (long i = 0; i < array.Length - 1; i++)
 				{
-					for (uint j = 0; j < array.Length - i - 1; j++)
+					for (long j = 0; j < array.Length - i - 1; j++)
 					{
-						comparisonCount++;
+						comparisonsCount++;
 						if (array[j].CompareTo(array[j + 1]) > 0)
 						{
 							swap(ref array[j], ref array[j + 1]);
@@ -33,11 +35,11 @@ namespace SortAlgsTimes
 			}
 			else
 			{
-				for (uint i = 0; i < array.Length - 1; i++)
+				for (long i = 0; i < array.Length - 1; i++)
 				{
-					for (uint j = 0; j < array.Length - i - 1; j++)
+					for (long j = 0; j < array.Length - i - 1; j++)
 					{
-						comparisonCount++;
+						comparisonsCount++;
 						if (array[j].CompareTo(array[j + 1]) < 0)
 						{
 							swap(ref array[j], ref array[j + 1]);
@@ -48,7 +50,7 @@ namespace SortAlgsTimes
 		}
 
 		// Insertion Sort algorithm
-		public static void InsertionSort<T>(T[] array, bool asc) where T :IComparable<T>
+		public static void InsertionSort<T>(T[] array, bool asc) where T : IComparable<T>
 		{
 			T temp;
 			long j;
@@ -58,12 +60,12 @@ namespace SortAlgsTimes
 				for (long i = 1; i < array.Length; i++)
 				{
 					temp = array[i];
-					comparisonCount++;
 					for (j = i - 1; j >= 0 && array[j].CompareTo(temp) > 0; j--)
 					{
-						comparisonCount++;
+						comparisonsCount++;
 						array[j + 1] = array[j];
 					}
+					comparisonsCount++;
 					array[j + 1] = temp;
 				}
 			}
@@ -72,12 +74,12 @@ namespace SortAlgsTimes
 				for (long i = 1; i < array.Length; i++)
 				{
 					temp = array[i];
-					comparisonCount++;
 					for (j = i - 1; j >= 0 && array[j].CompareTo(temp) < 0; j--)
 					{
-						comparisonCount++;
+						comparisonsCount++;
 						array[j + 1] = array[j];
 					}
+					comparisonsCount++;
 					array[j + 1] = temp;
 				}
 			}
@@ -107,13 +109,13 @@ namespace SortAlgsTimes
 					do
 					{
 						i++;
-						comparisonCount++;
+						comparisonsCount++;
 					} while (array[i].CompareTo(pivot) < 0);
 
 					do
 					{
 						j--;
-						comparisonCount++;
+						comparisonsCount++;
 					} while (array[j].CompareTo(pivot) > 0);
 
 					if (i >= j)
@@ -130,13 +132,13 @@ namespace SortAlgsTimes
 					do
 					{
 						i++;
-						comparisonCount++;
+						comparisonsCount++;
 					} while (array[i].CompareTo(pivot) > 0);
 
 					do
 					{
 						j--;
-						comparisonCount++;
+						comparisonsCount++;
 					} while (array[j].CompareTo(pivot) < 0);
 
 					if (i >= j)
@@ -158,8 +160,8 @@ namespace SortAlgsTimes
 				mid = (right + left) / 2;
 
 				MergeSort(array, left, mid, asc);
-				MergeSort(array, (mid + 1), right, asc);
-				DoMerge(array, left, (mid + 1), right, asc);
+				MergeSort(array, mid + 1, right, asc);
+				DoMerge(array, left, mid + 1, right, asc);
 			}
 		}
 
@@ -176,7 +178,7 @@ namespace SortAlgsTimes
 			{
 				while ((left <= left_end) && (mid <= right))
 				{
-					comparisonCount++;
+					comparisonsCount++;
 					if (array[left].CompareTo(array[mid]) <= 0)
 						temp[tmp_pos++] = array[left++];
 					else
@@ -187,7 +189,7 @@ namespace SortAlgsTimes
 			{
 				while ((left <= left_end) && (mid <= right))
 				{
-					comparisonCount++;
+					comparisonsCount++;
 					if (array[left].CompareTo(array[mid]) >= 0)
 						temp[tmp_pos++] = array[left++];
 					else
@@ -225,7 +227,7 @@ namespace SortAlgsTimes
 
 		private static void heapify<T>(T[] array, bool asc) where T : IComparable<T>
 		{
-			int start = (array.Length - 1 - 1) / 2;
+			int start = (array.Length - 2) / 2;
 
 			while (start >= 0)
 			{
@@ -241,16 +243,16 @@ namespace SortAlgsTimes
 			while (2 * root + 1 <= end)
 			{
 				int child = 2 * root + 1;
-				int _swap= root;
+				int _swap = root;
 
 				if (asc)
 				{
-					comparisonCount++;
+					comparisonsCount++;
 					if (array[_swap].CompareTo(array[child]) < 0)
 					{
 						_swap = child;
 					}
-					comparisonCount++;
+					comparisonsCount++;
 					if ((child + 1 <= end) && (array[_swap].CompareTo(array[child + 1]) < 0))
 					{
 						_swap = child + 1;
@@ -258,18 +260,18 @@ namespace SortAlgsTimes
 				}
 				else
 				{
-					comparisonCount++;
+					comparisonsCount++;
 					if (array[_swap].CompareTo(array[child]) > 0)
 					{
 						_swap = child;
 					}
-					comparisonCount++;
+					comparisonsCount++;
 					if ((child + 1 <= end) && (array[_swap].CompareTo(array[child + 1]) > 0))
 					{
 						_swap = child + 1;
 					}
 				}
-				
+
 				if (_swap == root)
 				{
 					return;
@@ -279,6 +281,401 @@ namespace SortAlgsTimes
 					swap(ref array[root], ref array[_swap]);
 					root = _swap;
 				}
+			}
+		}
+
+		// Pigeonhole Sort algorithm (byte)
+		public static void PigeonholeSort(byte[] array, bool asc)
+		{
+			byte min = array[0];
+			byte max = array[0];
+
+			foreach (byte item in array)
+			{
+				if (item < min)
+				{
+					min = item;
+				}
+				if (item > max)
+				{
+					max = item;
+				}
+				comparisonsCount += 2;
+			}
+
+			short size = (short)(max - min + 1);
+
+			int[] holes = new int[size];
+
+			foreach (byte item in array)
+			{
+				holes[item - min]++;
+			}
+
+			if (asc)
+			{
+				int i = 0;
+				for (short j = 0; j < size; j++)
+				{
+					while (holes[j]-- > 0)
+					{
+						array[i++] = (byte)(j + min);
+					}
+				}
+			}
+			else
+			{
+				int i = 0;
+				for (short j = (byte)(size - 1); j >= 0; j--)
+				{
+					while (holes[j]-- > 0)
+					{
+						array[i++] = (byte)(j + min);
+					}
+				}
+			}
+		}
+
+		// Pigeonhole Sort algorithm (short)
+		public static void PigeonholeSort(short[] array, bool asc)
+		{
+			short min = array[0];
+			short max = array[0];
+
+			foreach (short item in array)
+			{
+				if (item < min)
+				{
+					min = item;
+				}
+				if (item > max)
+				{
+					max = item;
+				}
+				comparisonsCount += 2;
+			}
+
+			int size = max - min + 1;
+
+			int[] holes = new int[size];
+
+			foreach (short item in array)
+			{
+				holes[item - min]++;
+			}
+
+			if (asc)
+			{
+				int i = 0;
+				for (int j = 0; j < size; j++)
+				{
+					while (holes[j]-- > 0)
+					{
+						array[i++] = (short)(j + min);
+					}
+				}
+			}
+			else
+			{
+				int i = 0;
+				for (int j = size - 1; j >= 0; j--)
+				{
+					while (holes[j]-- > 0)
+					{
+						array[i++] = (short)(j + min);
+					}
+				}
+			}
+		}
+
+		// Counting Sort algorithm (byte)
+		public static void CountingSort(byte[] array, bool asc)
+		{
+			byte min = array[0];
+			byte max = array[0];
+
+			foreach (byte item in array)
+			{
+				if (item < min)
+				{
+					min = item;
+				}
+				if (item > max)
+				{
+					max = item;
+				}
+				comparisonsCount += 2;
+			}
+
+			int[] counts = new int[max - min + 1];
+
+			foreach (byte item in array)
+			{
+				counts[item - min]++;
+			}
+
+			counts[0]--;
+			for (short i = 1; i < counts.Length; i++)
+			{
+				counts[i] = counts[i] + counts[i - 1];
+			}
+
+			byte[] sortedArray = new byte[array.Length];
+
+			for (int i = array.Length - 1; i >= 0; i--)
+			{
+				sortedArray[counts[array[i] - min]--] = array[i];
+			}
+
+			if (asc)
+			{
+				for (int i = 0; i < array.Length; i++)
+				{
+					array[i] = sortedArray[i];
+				}
+			}
+			else
+			{
+				for (int i = 0, j = array.Length - 1; i < array.Length; i++, j--)
+				{
+					array[j] = sortedArray[i];
+				}
+			}
+		}
+
+		// Counting Sort algorithm (short)
+		public static void CountingSort(short[] array, bool asc)
+		{
+			short min = array[0];
+			short max = array[0];
+
+			foreach (short item in array)
+			{
+				if (item < min)
+				{
+					min = item;
+				}
+				if (item > max)
+				{
+					max = item;
+				}
+				comparisonsCount += 2;
+			}
+
+			int[] counts = new int[max - min + 1];
+
+			foreach (short item in array)
+			{
+				counts[item - min]++;
+			}
+
+			counts[0]--;
+			for (int i = 1; i < counts.Length; i++)
+			{
+				counts[i] = counts[i] + counts[i - 1];
+			}
+
+			short[] sortedArray = new short[array.Length];
+
+			for (int i = array.Length - 1; i >= 0; i--)
+			{
+				sortedArray[counts[array[i] - min]--] = array[i];
+			}
+
+
+			if (asc)
+			{
+				Array.Copy(sortedArray, array, array.Length);
+			}
+			else
+			{
+				for (int i = 0, j = array.Length - 1; i < array.Length; i++, j--)
+				{
+					array[j] = sortedArray[i];
+				}
+			}
+		}
+
+		// Radix Sort algorithm (byte)
+		public static void RadixSort(byte[] array, bool asc)
+		{
+			int i, j;
+			byte[] tmp = new byte[array.Length];
+			for (int shift = 31; shift > -1; shift--)
+			{
+				j = 0;
+				for (i = 0; i < array.Length; i++)
+				{
+					comparisonsCount += 2;
+					bool move = (array[i] << shift) >= 0;
+					if (shift == 0 ? !move : move)
+						array[i - j] = array[i];
+					else
+						tmp[j++] = array[i];
+				}
+				Array.Copy(tmp, 0, array, array.Length - j, j);
+			}
+
+			if (!asc)
+			{
+				Array.Reverse(array);
+			}
+		}
+
+		// Radix Sort algorithm (short)
+		public static void RadixSort(short[] array, bool asc)
+		{
+			int i, j;
+			short[] tmp = new short[array.Length];
+			for (int shift = 31; shift > -1; shift--)
+			{
+				j = 0;
+				for (i = 0; i < array.Length; i++)
+				{
+					comparisonsCount += 2;
+					bool move = (array[i] << shift) >= 0;
+					if (shift == 0 ? !move : move)
+						array[i - j] = array[i];
+					else
+						tmp[j++] = array[i];
+				}
+				Array.Copy(tmp, 0, array, array.Length - j, j);
+			}
+
+			if (!asc)
+			{
+				Array.Reverse(array);
+			}
+		}
+
+		// Radix Sort algorithm (int)
+		public static void RadixSort(int[] array, bool asc)
+		{
+			int i, j;
+			int[] tmp = new int[array.Length];
+			for (int shift = 31; shift > -1; shift--)
+			{
+				j = 0;
+				for (i = 0; i < array.Length; i++)
+				{
+					comparisonsCount += 2;
+					bool move = (array[i] << shift) >= 0;
+					if (shift == 0 ? !move : move)
+						array[i - j] = array[i];
+					else
+						tmp[j++] = array[i];
+				}
+				Array.Copy(tmp, 0, array, array.Length - j, j);
+			}
+
+			if (!asc)
+			{
+				Array.Reverse(array);
+			}
+		}
+
+		// Radix Sort algorithm (long)
+		public static void RadixSort(long[] array, bool asc)
+		{
+			long i, j;
+			long[] tmp = new long[array.Length];
+			for (int shift = 31; shift > -1; shift--)
+			{
+				j = 0;
+				for (i = 0; i < array.Length; i++)
+				{
+					comparisonsCount += 2;
+					bool move = (array[i] << shift) >= 0;
+					if (shift == 0 ? !move : move)
+						array[i - j] = array[i];
+					else
+						tmp[j++] = array[i];
+				}
+				Array.Copy(tmp, 0, array, array.Length - j, j);
+			}
+
+			if (!asc)
+			{
+				Array.Reverse(array);
+			}
+		}
+
+		// Shell Sort algorithm
+		public static void ShellSort<T>(T[] array, bool asc) where T : IComparable<T>
+		{
+			int gap = array.Length / 2;
+			T temp;
+
+			while (gap > 0)
+			{
+				for (int i = 0; i + gap < array.Length; i++)
+				{
+					comparisonsCount++;
+					int j = i + gap;
+					temp = array[j];
+
+					if (asc)
+					{
+						while (j - gap >= 0 && temp.CompareTo(array[j - gap]) < 0)
+						{
+							comparisonsCount++;
+							array[j] = array[j - gap];
+							j = j - gap;
+						}
+					}
+					else
+					{
+						while (j - gap >= 0 && temp.CompareTo(array[j - gap]) > 0)
+						{
+							comparisonsCount++;
+							array[j] = array[j - gap];
+							j = j - gap;
+						}
+					}
+					comparisonsCount++;
+					array[j] = temp;
+				}
+				comparisonsCount++;
+				gap = gap / 2;
+			}
+		}
+
+		// Binary Insertion Sort algorithm
+		public static void BinaryInsertionSort<T>(T[] array, bool asc) where T : IComparable<T>
+		{
+			for (int i = 1; i < array.Length; i++)
+			{
+				int low = 0;
+				int high = i - 1;
+				T temp = array[i];
+
+				while (low <= high)
+				{
+					comparisonsCount++;
+					int mid = (low + high) / 2;
+
+					comparisonsCount++;
+					if (asc)
+					{
+						if (temp.CompareTo(array[mid]) < 0)
+							high = mid - 1;
+						else
+							low = mid + 1;
+					}
+					else
+					{
+						if (temp.CompareTo(array[mid]) > 0)
+							high = mid - 1;
+						else
+							low = mid + 1;
+					}
+				}
+				comparisonsCount++;
+
+				for (int j = i - 1; j >= low; j--)
+					array[j + 1] = array[j];
+
+				array[low] = temp;
 			}
 		}
 	}

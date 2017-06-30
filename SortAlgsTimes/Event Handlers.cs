@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace SortAlgsTimes
@@ -13,9 +12,7 @@ namespace SortAlgsTimes
 				clearUserData();
 				hideArrayContent();
 				disableControls();
-				arrayContentTextBlock.Text = "[EMPTY]";
-				sortedArrayContentTextBlock.Text = "[EMPTY]";
-				_arraySize = Convert.ToUInt32(arraySizeTextBox.Text);
+				_arraySize = uint.Parse(arraySizeTextBox.Text);
 				if (arrayTypesComboBox.SelectedIndex == 4)
 				{
 					_minStringLength = (short)(stringLengthBoundComboBox1.SelectedIndex + 1);
@@ -54,7 +51,7 @@ namespace SortAlgsTimes
 		{
 			clearUserData();
 			arraySizeTextBox.Text = "";
-			stringSpecs.Visibility = Visibility.Hidden;
+			stringSpecsGrid.Visibility = Visibility.Collapsed;
 
 			switch (arrayTypesComboBox.SelectedIndex)
 			{
@@ -71,7 +68,7 @@ namespace SortAlgsTimes
 					arraySizeTextBox.MaxLength = 7;
 					break;
 				case 4:
-					stringSpecs.Visibility = Visibility.Visible;
+					stringSpecsGrid.Visibility = Visibility.Visible;
 					arraySizeTextBox.MaxLength = 6;
 					break;
 				default:
@@ -83,7 +80,7 @@ namespace SortAlgsTimes
 		{
 			if (validateInput(arraySizeTextBox.Text))
 			{
-				invalidSizeTextBlock.Visibility = Visibility.Hidden;
+				invalidSizeTextBlock.Visibility = Visibility.Collapsed;
 				if (arraySizeTextBox.Text != "")
 				{
 					createArrayButton.IsEnabled = true;
@@ -122,8 +119,8 @@ namespace SortAlgsTimes
 		private void showArrayCheckBox_Unchecked(object sender, RoutedEventArgs e)
 		{
 			topGrid.Height -= 90;
-			arrayContentScrollViewer.Visibility = Visibility.Hidden;
-			proceedDisplayingArrayButton.Visibility = Visibility.Hidden;
+			arrayContentScrollViewer.Visibility = Visibility.Collapsed;
+			proceedDisplayingArrayButton.Visibility = Visibility.Collapsed;
 			arrayContentTextBlock.Text = "[EMPTY]";
 		}
 
@@ -131,126 +128,248 @@ namespace SortAlgsTimes
 		{
 			if (sortedArrayContentTextBlock.Text == "[EMPTY]")
 			{
-				if (_arraySize <= 20000)
-				{
-					copySortedArrayItemsToDisplay(ref sortedArrayContentTextBlock);
-				}
-				else
-				{
-					sortedArrayContentTextBlock.Text = "Dispalying this much data can consume much time.\nDo you wish to continue?";
-					proceedDisplayingSortedArrayButton.IsEnabled = true;
-					proceedDisplayingSortedArrayButton.Visibility = Visibility.Visible;
-				}
+				UpdateSortedArrayTextBlock();
 			}
 			sortedArrayContentScrollViewer.Visibility = Visibility.Visible;
 		}
 
+		private void UpdateSortedArrayTextBlock()
+		{
+			if (_arraySize <= 20000)
+			{
+				copySortedArrayItemsToDisplay(ref sortedArrayContentTextBlock);
+			}
+			else
+			{
+				sortedArrayContentTextBlock.Text = "Dispalying this much data can consume much time.\nDo you wish to continue?";
+				proceedDisplayingSortedArrayButton.IsEnabled = true;
+				proceedDisplayingSortedArrayButton.Visibility = Visibility.Visible;
+			}
+		}
+
 		private void showSortedArrayCheckBox_Unchecked(object sender, RoutedEventArgs e)
 		{
-			proceedDisplayingSortedArrayButton.Visibility = Visibility.Hidden;
-			sortedArrayContentScrollViewer.Visibility = Visibility.Hidden;
+			proceedDisplayingSortedArrayButton.Visibility = Visibility.Collapsed;
+			sortedArrayContentScrollViewer.Visibility = Visibility.Collapsed;
 			sortedArrayContentTextBlock.Text = "[EMPTY]";
 		}
 
 		private void proceedDisplayingArray_Click(object sender, RoutedEventArgs e)
 		{
 			proceedDisplayingArrayButton.IsEnabled = false;
-			proceedDisplayingArrayButton.Visibility = Visibility.Hidden;
+			proceedDisplayingArrayButton.Visibility = Visibility.Collapsed;
 			copyArrayItemsToDisplay(ref arrayContentTextBlock);
 		}
 
 		private void proceedDisplayingSortedArray_Click(object sender, RoutedEventArgs e)
 		{
 			proceedDisplayingSortedArrayButton.IsEnabled = false;
-			proceedDisplayingSortedArrayButton.Visibility = Visibility.Hidden;
+			proceedDisplayingSortedArrayButton.Visibility = Visibility.Collapsed;
 			copySortedArrayItemsToDisplay(ref sortedArrayContentTextBlock);
 		}
 
-		private void bubbleSortButton_Click(object sender, RoutedEventArgs e)
+		private void PerformSort()
 		{
-			SortAlgs.comparisonCount = 0;
-			if (_lastUsedSortOrder != (sortOrderComboBox.SelectedIndex == 0) ? true : false)
-			{
-				sortedArrayContentTextBlock.Text = "[EMPTY]";
-				showSortedArrayCheckBox.IsChecked = false;
-				showSortedArrayCheckBox.IsEnabled = false;
-			}
-			_lastUsedSortOrder = (sortOrderComboBox.SelectedIndex == 0) ? true : false;
-
 			switch (arrayTypesComboBox.SelectedIndex)
 			{
 				case 0:
-					_sortedByteArray = new byte[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
+					switch ((SortAlgsEnum)sortAlgComboBox.SelectedIndex)
 					{
-						_sortedByteArray[i] = _byteArray[i];
+						case SortAlgsEnum.BUBBLE_SORT:
+							SortAlgs.BubbleSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.INSERTION_SORT:
+							SortAlgs.InsertionSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.QUICK_SORT:
+							SortAlgs.QuickSort(_sortedByteArray, 0, _sortedByteArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.MERGE_SORT:
+							SortAlgs.MergeSort(_sortedByteArray, 0, _sortedByteArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.HEAP_SORT:
+							SortAlgs.HeapSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.PIGEON_SORT:
+							SortAlgs.PigeonholeSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.COUNT_SORT:
+							SortAlgs.CountingSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.RADIX_SORT:
+							SortAlgs.RadixSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.SHELL_SORT:
+							SortAlgs.ShellSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.BINARY_INSERTION_SORT:
+							SortAlgs.BinaryInsertionSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						default:
+							break;
 					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.BubbleSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
 					break;
 				case 1:
-					_sortedInt16Array = new short[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
+					switch ((SortAlgsEnum)sortAlgComboBox.SelectedIndex)
 					{
-						_sortedInt16Array[i] = _Int16Array[i];
+						case SortAlgsEnum.BUBBLE_SORT:
+							SortAlgs.BubbleSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.INSERTION_SORT:
+							SortAlgs.InsertionSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.QUICK_SORT:
+							SortAlgs.QuickSort(_sortedInt16Array, 0, _sortedInt16Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.MERGE_SORT:
+							SortAlgs.MergeSort(_sortedInt16Array, 0, _sortedInt16Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.HEAP_SORT:
+							SortAlgs.HeapSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.PIGEON_SORT:
+							SortAlgs.PigeonholeSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.COUNT_SORT:
+							SortAlgs.CountingSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.RADIX_SORT:
+							SortAlgs.RadixSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.SHELL_SORT:
+							SortAlgs.ShellSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.BINARY_INSERTION_SORT:
+							SortAlgs.BinaryInsertionSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						default:
+							break;
 					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.BubbleSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
 					break;
 				case 2:
-					_sortedInt32Array = new int[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
+					switch ((SortAlgsEnum)sortAlgComboBox.SelectedIndex)
 					{
-						_sortedInt32Array[i] = _Int32Array[i];
+						case SortAlgsEnum.BUBBLE_SORT:
+							SortAlgs.BubbleSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.INSERTION_SORT:
+							SortAlgs.InsertionSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.QUICK_SORT:
+							SortAlgs.QuickSort(_sortedInt32Array, 0, _sortedInt32Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.MERGE_SORT:
+							SortAlgs.MergeSort(_sortedInt32Array, 0, _sortedInt32Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.HEAP_SORT:
+							SortAlgs.HeapSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.PIGEON_SORT:
+							sortResultTextBlock.Text = "This algorithm does not support whole range of Int32 numbers.";
+							break;
+						case SortAlgsEnum.COUNT_SORT:
+							sortResultTextBlock.Text = "This algorithm does not support whole range of Int32 numbers.";
+							error = true;
+							break;
+						case SortAlgsEnum.RADIX_SORT:
+							SortAlgs.RadixSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.SHELL_SORT:
+							SortAlgs.ShellSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.BINARY_INSERTION_SORT:
+							SortAlgs.BinaryInsertionSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						default:
+							break;
 					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.BubbleSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
 					break;
 				case 3:
-					_sortedInt64Array = new long[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
+					switch ((SortAlgsEnum)sortAlgComboBox.SelectedIndex)
 					{
-						_sortedInt64Array[i] = _Int64Array[i];
+						case SortAlgsEnum.BUBBLE_SORT:
+							SortAlgs.BubbleSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.INSERTION_SORT:
+							SortAlgs.InsertionSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.QUICK_SORT:
+							SortAlgs.QuickSort(_sortedInt64Array, 0, _sortedInt64Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.MERGE_SORT:
+							SortAlgs.MergeSort(_sortedInt64Array, 0, _sortedInt64Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.HEAP_SORT:
+							SortAlgs.HeapSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.PIGEON_SORT:
+							sortResultTextBlock.Text = "This algorithm does not support whole range of Int64 numbers.";
+							error = true;
+							break;
+						case SortAlgsEnum.COUNT_SORT:
+							sortResultTextBlock.Text = "This algorithm does not support whole range of Int64 numbers.";
+							error = true;
+							break;
+						case SortAlgsEnum.RADIX_SORT:
+							SortAlgs.RadixSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.SHELL_SORT:
+							SortAlgs.ShellSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.BINARY_INSERTION_SORT:
+							SortAlgs.BinaryInsertionSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						default:
+							break;
 					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.BubbleSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
 					break;
 				case 4:
-					_sortedStringArray = new string[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
+					switch ((SortAlgsEnum)sortAlgComboBox.SelectedIndex)
 					{
-						_sortedStringArray[i] = _stringArray[i];
+						case SortAlgsEnum.BUBBLE_SORT:
+							SortAlgs.BubbleSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.INSERTION_SORT:
+							SortAlgs.InsertionSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.QUICK_SORT:
+							SortAlgs.QuickSort(_sortedStringArray, 0, _sortedStringArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.MERGE_SORT:
+							SortAlgs.MergeSort(_sortedStringArray, 0, _sortedStringArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.HEAP_SORT:
+							SortAlgs.HeapSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.PIGEON_SORT:
+							sortResultTextBlock.Text = "This algorithm is not suitable for strings.";
+							error = true;
+							break;
+						case SortAlgsEnum.COUNT_SORT:
+							sortResultTextBlock.Text = "This algorithm is not suitable for strings.";
+							error = true;
+							break;
+						case SortAlgsEnum.RADIX_SORT:
+							sortResultTextBlock.Text = "Type string is not supported for this algorithm yet...";
+							error = true;
+							break;
+						case SortAlgsEnum.SHELL_SORT:
+							SortAlgs.ShellSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						case SortAlgsEnum.BINARY_INSERTION_SORT:
+							SortAlgs.BinaryInsertionSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0));
+							break;
+						default:
+							break;
 					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.BubbleSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				default:
 					break;
 			}
-			bubbleSortTime.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonCount + " comparisons";
-			enableShowSortedArrayCheckBox();
 		}
 
-		private void insertionSortButton_Click(object sender, RoutedEventArgs e)
+		private void sortButton_Click(object sender, RoutedEventArgs e)
 		{
-			SortAlgs.comparisonCount = 0;
-			if (_lastUsedSortOrder != (sortOrderComboBox.SelectedIndex == 0) ? true : false)
-			{
-				sortedArrayContentTextBlock.Text = "[EMPTY]";
-				showSortedArrayCheckBox.IsChecked = false;
-				showSortedArrayCheckBox.IsEnabled = false;
-			}
-			_lastUsedSortOrder = (sortOrderComboBox.SelectedIndex == 0) ? true : false;
+			SortAlgs.comparisonsCount = 0;
+			error = false;
 
 			switch (arrayTypesComboBox.SelectedIndex)
 			{
@@ -262,7 +381,7 @@ namespace SortAlgsTimes
 					}
 					watch.Reset();
 					watch.Start();
-					SortAlgs.InsertionSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					PerformSort();
 					watch.Stop();
 					break;
 				case 1:
@@ -273,7 +392,7 @@ namespace SortAlgsTimes
 					}
 					watch.Reset();
 					watch.Start();
-					SortAlgs.InsertionSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					PerformSort();
 					watch.Stop();
 					break;
 				case 2:
@@ -284,7 +403,7 @@ namespace SortAlgsTimes
 					}
 					watch.Reset();
 					watch.Start();
-					SortAlgs.InsertionSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					PerformSort();
 					watch.Stop();
 					break;
 				case 3:
@@ -295,7 +414,7 @@ namespace SortAlgsTimes
 					}
 					watch.Reset();
 					watch.Start();
-					SortAlgs.InsertionSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					PerformSort();
 					watch.Stop();
 					break;
 				case 4:
@@ -306,239 +425,46 @@ namespace SortAlgsTimes
 					}
 					watch.Reset();
 					watch.Start();
-					SortAlgs.InsertionSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
+					PerformSort();
 					watch.Stop();
 					break;
 				default:
 					break;
 			}
-			insertionSortTime.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonCount + " comparisons";
-			enableShowSortedArrayCheckBox();
+
+			if (_lastUsedSortOrder != (sortOrderComboBox.SelectedIndex == 0))
+			{
+				UpdateSortedArrayTextBlock();
+			}
+			_lastUsedSortOrder = (sortOrderComboBox.SelectedIndex == 0);
+
+			if (!error)
+			{
+				sortResultTextBlock.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonsCount + " comparisons";
+				enableShowSortedArrayCheckBox();
+			}
+			else
+			{
+				disableShowSortedArrayCheckBox();
+			}
 		}
 
-		private void quickSortButton_Click(object sender, RoutedEventArgs e)
+		private void sortAlgComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			SortAlgs.comparisonCount = 0;
-			if (_lastUsedSortOrder != (sortOrderComboBox.SelectedIndex == 0) ? true : false)
-			{
-				sortedArrayContentTextBlock.Text = "[EMPTY]";
-				showSortedArrayCheckBox.IsChecked = false;
-				showSortedArrayCheckBox.IsEnabled = false;
-			}
-			_lastUsedSortOrder = (sortOrderComboBox.SelectedIndex == 0) ? true : false;
-
-			switch (arrayTypesComboBox.SelectedIndex)
-			{
-				case 0:
-					_sortedByteArray = new byte[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedByteArray[i] = _byteArray[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.QuickSort(_sortedByteArray, 0, _sortedByteArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 1:
-					_sortedInt16Array = new short[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedInt16Array[i] = _Int16Array[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.QuickSort(_sortedInt16Array, 0, _sortedInt16Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 2:
-					_sortedInt32Array = new int[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedInt32Array[i] = _Int32Array[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.QuickSort(_sortedInt32Array, 0, _sortedInt32Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 3:
-					_sortedInt64Array = new long[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedInt64Array[i] = _Int64Array[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.QuickSort(_sortedInt64Array, 0, _sortedInt64Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 4:
-					_sortedStringArray = new string[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedStringArray[i] = _stringArray[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.QuickSort(_sortedStringArray, 0, _sortedStringArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				default:
-					break;
-			}
-			quickSortTime.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonCount + " comparisons";
-			enableShowSortedArrayCheckBox();
+			sortResultTextBlock.Text = "";
 		}
 
-		private void mergeSortButton_Click(object sender, RoutedEventArgs e)
+		private void displaySortAlgButton_Click(object sender, RoutedEventArgs e)
 		{
-			SortAlgs.comparisonCount = 0;
-			if (_lastUsedSortOrder != (sortOrderComboBox.SelectedIndex == 0) ? true : false)
+			if (implementationsWindow == null)
 			{
-				sortedArrayContentTextBlock.Text = "[EMPTY]";
-				showSortedArrayCheckBox.IsChecked = false;
-				showSortedArrayCheckBox.IsEnabled = false;
+				implementationsWindow = new ImplementationsWindow((SortAlgsEnum)sortAlgComboBox.SelectedIndex);
+				implementationsWindow.Closed += (s, ev) =>
+				{
+					implementationsWindow = null;
+				};
+				implementationsWindow.Show();
 			}
-			_lastUsedSortOrder = (sortOrderComboBox.SelectedIndex == 0) ? true : false;
-
-			switch (arrayTypesComboBox.SelectedIndex)
-			{
-				case 0:
-					_sortedByteArray = new byte[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedByteArray[i] = _byteArray[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.MergeSort(_sortedByteArray, 0, _sortedByteArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 1:
-					_sortedInt16Array = new short[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedInt16Array[i] = _Int16Array[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.MergeSort(_sortedInt16Array, 0, _sortedInt16Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 2:
-					_sortedInt32Array = new int[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedInt32Array[i] = _Int32Array[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.MergeSort(_sortedInt32Array, 0, _sortedInt32Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 3:
-					_sortedInt64Array = new long[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedInt64Array[i] = _Int64Array[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.MergeSort(_sortedInt64Array, 0, _sortedInt64Array.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 4:
-					_sortedStringArray = new string[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedStringArray[i] = _stringArray[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.MergeSort(_sortedStringArray, 0, _sortedStringArray.Length - 1, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				default:
-					break;
-			}
-			mergeSortTime.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonCount + " comparisons";
-			enableShowSortedArrayCheckBox();
-		}
-
-		private void heapSortButton_Click(object sender, RoutedEventArgs e)
-		{
-			SortAlgs.comparisonCount = 0;
-			if (_lastUsedSortOrder != (sortOrderComboBox.SelectedIndex == 0) ? true : false)
-			{
-				sortedArrayContentTextBlock.Text = "[EMPTY]";
-				showSortedArrayCheckBox.IsChecked = false;
-				showSortedArrayCheckBox.IsEnabled = false;
-			}
-			_lastUsedSortOrder = (sortOrderComboBox.SelectedIndex == 0) ? true : false;
-
-			switch (arrayTypesComboBox.SelectedIndex)
-			{
-				case 0:
-					_sortedByteArray = new byte[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedByteArray[i] = _byteArray[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.HeapSort(_sortedByteArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 1:
-					_sortedInt16Array = new short[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedInt16Array[i] = _Int16Array[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.HeapSort(_sortedInt16Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 2:
-					_sortedInt32Array = new int[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedInt32Array[i] = _Int32Array[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.HeapSort(_sortedInt32Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 3:
-					_sortedInt64Array = new long[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedInt64Array[i] = _Int64Array[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.HeapSort(_sortedInt64Array, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				case 4:
-					_sortedStringArray = new string[_arraySize];
-					for (uint i = 0; i < _arraySize; i++)
-					{
-						_sortedStringArray[i] = _stringArray[i];
-					}
-					watch.Reset();
-					watch.Start();
-					SortAlgs.HeapSort(_sortedStringArray, (sortOrderComboBox.SelectedIndex == 0) ? true : false);
-					watch.Stop();
-					break;
-				default:
-					break;
-			}
-			heapSortTime.Text = timeSpanToText(watch.Elapsed) + "  |  " + SortAlgs.comparisonCount + " comparisons";
-			enableShowSortedArrayCheckBox();
 		}
 	}
 }

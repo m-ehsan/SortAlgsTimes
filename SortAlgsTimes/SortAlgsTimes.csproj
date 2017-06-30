@@ -55,8 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ImplementationsWindow.xaml.cs">
+      <DependentUpon>ImplementationsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SortAlgs.cs" />
     <Compile Include="Validation.cs" />
+    <Page Include="ImplementationsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
