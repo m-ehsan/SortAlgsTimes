@@ -1,5 +1,5 @@
 # SortAlgsTimes
-A WPF project that caclulates and compares some sorting algorithms times.<br/>
+A WPF project that caclulates and compares some sorting algorithms efficiencies.
 
 ## Sort algorithms used in this project
 * Bubble sort
@@ -7,6 +7,11 @@ A WPF project that caclulates and compares some sorting algorithms times.<br/>
 * Quick sort
 * Merge sort
 * Heap sort
+* Pigeonhole sort
+* Counting sort
+* Radix sort
+* Shell sort
+* Binary insertion sort
 
 ## Features
 * Array size is defined by user
@@ -17,6 +22,7 @@ A WPF project that caclulates and compares some sorting algorithms times.<br/>
 * Sort operations can be either ascending or descending
 * Input array can be sorted initially
 * Display array content from before and after the sort operation
+* View a simple implementation for each sort algorithm in C#
 
 ## Todo
-* Add support of more sort algorithms
+* Add support of manually insertion of array elements
